@@ -19,7 +19,7 @@ export class AfterAuthComponent {
     const token = this.route.snapshot.fragment?.split('=')[1];
     if (token) {
       this.trelloService.saveToken(token);
-      this.router.navigate(['/trello-account']);
     }
+    this.router.navigate(['/trello-account']);
   }
 }

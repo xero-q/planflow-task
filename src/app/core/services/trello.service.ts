@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
 import TrelloBoard from '../../shared/interfaces/trello-board';
@@ -12,7 +13,10 @@ import TrelloCard from '../../shared/interfaces/trello-card';
 export class TrelloService {
   API_KEY = environment.TRELLO_API_KEY;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   getBoards(): Observable<TrelloBoard[]> {
     return this.httpClient.get<TrelloBoard[]>(
@@ -47,12 +51,19 @@ export class TrelloService {
   }
 
   saveToken(token: string) {
-    localStorage.setItem('trello_token', token);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('trello_token', token);
+    }
   }
   getToken() {
-    return localStorage.getItem('trello_token');
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('trello_token');
+    }
+    return null;
   }
   deleteToken() {
-    localStorage.removeItem('trello_token');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('trello_token');
+    }
   }
 }
