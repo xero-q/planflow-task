@@ -3,6 +3,7 @@ import { TrelloService } from '../../services/trello.service';
 import { map } from 'rxjs';
 import { TrelloBoardComponent } from '../trello-board/trello-board.component';
 import TrelloBoard from '../../../shared/interfaces/trello-board';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trello-account',
@@ -13,7 +14,7 @@ import TrelloBoard from '../../../shared/interfaces/trello-board';
 export class TrelloAccountComponent {
   boardsList: WritableSignal<TrelloBoard[]> = signal([]);
 
-  constructor(private trelloService: TrelloService) {}
+  constructor(private trelloService: TrelloService, private router: Router) {}
 
   ngOnInit() {
     this.trelloService
@@ -24,5 +25,9 @@ export class TrelloAccountComponent {
       .subscribe((boards: TrelloBoard[]) => {
         this.boardsList.set(boards);
       });
+  }
+
+  onBoardClick(boardId: string) {
+    this.router.navigate(['/trello-board', boardId]);
   }
 }

@@ -1,0 +1,15 @@
+.trello-board {
+    cursor:pointer;
+    border:1px solid #CCC;
+    min-width: 200px;
+    max-width:400px;
+    padding: 4px;
+    margin-right:0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+
+    & > h1 {
+        font-size:2rem;
+        font-weight:600;
+        text-align: center;
+    }
+}

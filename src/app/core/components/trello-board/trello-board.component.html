@@ -1,3 +1,9 @@
-<div>
+@if (board){
+<div class="trello-board">
   <h1>{{ board.name }}</h1>
 </div>
+} @if (boardId){ @for (list of tasksLists(); track list.id) {
+<div class="trello-list">
+  <app-trello-list [list]="list"></app-trello-list>
+</div>
+} }

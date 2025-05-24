@@ -1,0 +1,6 @@
+{{ list.name }}
+@for (card of cardsList(); track card.id) {
+<div class="card">
+  <app-trello-card [card]="card"></app-trello-card>
+</div>
+}

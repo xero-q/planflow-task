@@ -1,7 +1,14 @@
 .boards-list {
     display:flex;
     flex-direction: column;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
+    gap:0.5rem;
     height: 100%;
+    margin-left:auto;
+    margin-right:auto;
+
+    @media (min-width: 600px) {
+        flex-direction: row;
+    }
 }
