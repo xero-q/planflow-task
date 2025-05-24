@@ -5,7 +5,7 @@
 } @if (boardId){
 <div class="trello-list-container">
   @if (isLoading){
-  <h1>Loading...</h1>
+  <app-loader></app-loader>
   } @for (list of tasksLists(); track list.id) {
   <app-trello-list [list]="list"></app-trello-list>
   } @if (!isLoading && tasksLists().length === 0) {

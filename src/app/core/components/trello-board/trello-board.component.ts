@@ -5,10 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import TrelloList from '../../../shared/interfaces/trello-list';
 import { map } from 'rxjs';
 import { TrelloListComponent } from '../trello-list/trello-list.component';
+import { LoaderComponent } from "../loader/loader.component";
 
 @Component({
   selector: 'app-trello-board',
-  imports: [TrelloListComponent],
+  imports: [TrelloListComponent, LoaderComponent],
   templateUrl: './trello-board.component.html',
   styleUrl: './trello-board.component.scss',
 })

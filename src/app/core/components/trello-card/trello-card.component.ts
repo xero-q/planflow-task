@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import TrelloCard from '../../../shared/interfaces/trello-card';
 import { ActivatedRoute } from '@angular/router';
 import { TrelloService } from '../../services/trello.service';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-trello-card',
-  imports: [],
+  imports: [LoaderComponent],
   templateUrl: './trello-card.component.html',
   styleUrl: './trello-card.component.scss',
 })

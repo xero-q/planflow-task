@@ -4,10 +4,11 @@ import { map } from 'rxjs';
 import { TrelloBoardComponent } from '../trello-board/trello-board.component';
 import TrelloBoard from '../../../shared/interfaces/trello-board';
 import { Router } from '@angular/router';
+import { LoaderComponent } from "../loader/loader.component";
 
 @Component({
   selector: 'app-trello-account',
-  imports: [TrelloBoardComponent],
+  imports: [TrelloBoardComponent, LoaderComponent],
   templateUrl: './trello-account.component.html',
   styleUrl: './trello-account.component.scss',
 })

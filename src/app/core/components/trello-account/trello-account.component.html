@@ -1,6 +1,6 @@
 <div class="boards-list">
   @if (isLoading){
-  <h1>Loading...</h1>
+  <app-loader></app-loader>
   } @for (board of boardsList(); track board.id) {
   <app-trello-board
     [board]="board"

@@ -3,7 +3,7 @@
   <h3>Name: {{ card?.name }}</h3>
 </div>
 } @if (isLoading){
-<h1>Loading...</h1>
+<app-loader></app-loader>
 } @if (!isLoading && cardId){
 <div class="trello-card">
   <h3>Name: {{ card?.name }}</h3>
