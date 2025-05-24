@@ -1,0 +1,5 @@
+<div class="boards-list">
+  @for (board of boardsList(); track board.id) {
+  <app-trello-board [board]="board"></app-trello-board>
+  }
+</div>
