@@ -1,6 +1,13 @@
-{{ list.name }}
-@for (card of cardsList(); track card.id) {
-<div class="card">
-  <app-trello-card [card]="card"></app-trello-card>
+<div class="trello-list">
+  <h2>{{ list.name }}</h2>
+  <div class="cards-list">
+    @for (card of cardsList(); track card.id) {
+    <app-trello-card
+      [card]="card"
+      (click)="onCardClick(card.id)"
+    ></app-trello-card>
+    } @if (cardsList().length === 0) {
+    <h1>No cards</h1>
+    }
+  </div>
 </div>
-}

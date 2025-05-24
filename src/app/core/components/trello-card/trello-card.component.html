@@ -1,4 +1,12 @@
+@if (!cardId){
 <div class="trello-card">
-  {{ card.name }}
-  {{ card.desc }}
+  <h3>Name: {{ card?.name }}</h3>
 </div>
+} @if (isLoading){
+<h1>Loading...</h1>
+} @if (!isLoading && cardId){
+<div class="trello-card">
+  <h3>Name: {{ card?.name }}</h3>
+  <h3>Desc: {{ card?.desc }}</h3>
+</div>
+}

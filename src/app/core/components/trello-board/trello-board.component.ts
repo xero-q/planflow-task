@@ -4,7 +4,7 @@ import { TrelloService } from '../../services/trello.service';
 import { ActivatedRoute } from '@angular/router';
 import TrelloList from '../../../shared/interfaces/trello-list';
 import { map } from 'rxjs';
-import { TrelloListComponent } from "../trello-list/trello-list.component";
+import { TrelloListComponent } from '../trello-list/trello-list.component';
 
 @Component({
   selector: 'app-trello-board',
@@ -15,6 +15,7 @@ import { TrelloListComponent } from "../trello-list/trello-list.component";
 export class TrelloBoardComponent {
   @Input('board') board: TrelloBoard | null = null;
   boardId: string | null = null;
+  isLoading = this.board == null;
 
   tasksLists: WritableSignal<TrelloList[]> = signal([]);
 
@@ -35,6 +36,7 @@ export class TrelloBoardComponent {
           )
           .subscribe((lists: TrelloList[]) => {
             this.tasksLists.set(lists);
+            this.isLoading = false;
           });
       }
     });

@@ -2,8 +2,14 @@
 <div class="trello-board">
   <h1>{{ board.name }}</h1>
 </div>
-} @if (boardId){ @for (list of tasksLists(); track list.id) {
-<div class="trello-list">
+} @if (boardId){
+<div class="trello-list-container">
+  @if (isLoading){
+  <h1>Loading...</h1>
+  } @for (list of tasksLists(); track list.id) {
   <app-trello-list [list]="list"></app-trello-list>
+  } @if (!isLoading && tasksLists().length === 0) {
+  <h1>No lists</h1>
+  }
 </div>
-} }
+}

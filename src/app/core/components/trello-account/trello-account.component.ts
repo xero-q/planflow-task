@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class TrelloAccountComponent {
   boardsList: WritableSignal<TrelloBoard[]> = signal([]);
+  isLoading = true;
 
   constructor(private trelloService: TrelloService, private router: Router) {}
 
@@ -24,6 +25,7 @@ export class TrelloAccountComponent {
       )
       .subscribe((boards: TrelloBoard[]) => {
         this.boardsList.set(boards);
+        this.isLoading = false;
       });
   }
 

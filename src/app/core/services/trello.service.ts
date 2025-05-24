@@ -38,6 +38,14 @@ export class TrelloService {
     );
   }
 
+  getSingleCard(cardId: string): Observable<TrelloCard> {
+    return this.httpClient.get<TrelloCard>(
+      `https://api.trello.com/1/cards/${cardId}?key=${
+        this.API_KEY
+      }&token=${this.getToken()}`
+    );
+  }
+
   saveToken(token: string) {
     localStorage.setItem('trello_token', token);
   }

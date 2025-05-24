@@ -1,5 +1,12 @@
 <div class="boards-list">
-  @for (board of boardsList(); track board.id) {
-  <app-trello-board [board]="board" (click)="onBoardClick(board.id)"></app-trello-board>
+  @if (isLoading){
+  <h1>Loading...</h1>
+  } @for (board of boardsList(); track board.id) {
+  <app-trello-board
+    [board]="board"
+    (click)="onBoardClick(board.id)"
+  ></app-trello-board>
+  } @if (!isLoading && boardsList().length === 0) {
+  <h1>No boards</h1>
   }
 </div>
