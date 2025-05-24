@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+.btn-primary {
+      border-radius: 4px;
+    border:1px solid cornflowerblue;
+    background-color: cornflowerblue;
+    color:white;
+    font-weight: semibold;
+    padding:6px;
+    cursor:pointer;
+}
+
+.btn-secondary {
+      border-radius: 4px;
+    border:1px solid darkgray;
+    background-color: darkgray;
+    color:white;
+    font-weight: semibold;
+    padding:6px;
+    cursor:pointer; 
+}

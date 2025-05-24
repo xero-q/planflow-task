@@ -10,3 +10,17 @@
   <h1>No boards</h1>
   }
 </div>
+@if (!displayBoardForm){
+<button (click)="displayBoardForm = true" class="btn-secondary">
+  Add Board
+</button>
+} @if (displayBoardForm){
+<app-form-board (boardAdded)="onBoardAdded()"></app-form-board>
+<button
+  (click)="displayBoardForm = false"
+  class="btn-secondary"
+  [ngStyle]="{ 'margin-top': '10px' }"
+>
+  Hide
+</button>
+}

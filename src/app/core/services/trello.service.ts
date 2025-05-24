@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
@@ -48,6 +48,16 @@ export class TrelloService {
         this.API_KEY
       }&token=${this.getToken()}`
     );
+  }
+
+  addNewBoard(boardName: string): Observable<TrelloBoard> {
+    const url = 'https://api.trello.com/1/boards/';
+    const params = new HttpParams()
+      .set('name', boardName)
+      .set('key', this.API_KEY)
+      .set('token', this.getToken() ?? '');
+
+    return this.httpClient.post<TrelloBoard>(url, null, { params });
   }
 
   saveToken(token: string) {
