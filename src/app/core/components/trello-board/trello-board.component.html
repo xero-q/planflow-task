@@ -1,9 +1,10 @@
 <div class="trello-list-container">
   @if (isLoading){
   <app-loader></app-loader>
-  } @for (list of tasksLists(); track list.id) {
+  } @if (!isLoading && tasksLists().length > 0){ @for (list of tasksLists();
+  track list.id) {
   <app-trello-list [list]="list"></app-trello-list>
-  } @if (!isLoading && tasksLists().length === 0) {
+  } } @if (!isLoading && tasksLists().length === 0) {
   <h1>No lists</h1>
   }
 </div>

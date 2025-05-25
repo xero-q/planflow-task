@@ -1,15 +1,111 @@
 .boards-list {
-    display:flex;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #121212;
+  color: #e0e0e0;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+
+  h3 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #bb86fc;
+  }
+
+  .boards-list-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    
+    .select-boards-list {
+      min-width: 200px;
+      min-height: 38px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: none;
+      background-color: #1f1f1f;
+      color: #e0e0e0;
+      font-size: 1rem;
+      box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+      transition: background-color 0.3s ease;
+
+      &:focus {
+        outline: none;
+        background-color: #333;
+        box-shadow: 0 0 8px #bb86fc;
+      }
+    }
+
+    .btn-secondary {
+      background-color: #3700b3;
+      color: #e0e0e0;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(55,0,179,0.6);
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #6200ee;
+        box-shadow: 0 6px 12px rgba(98,0,238,0.8);
+      }
+    }
+  }
+}
+
+button.btn-secondary {
+  align-self: flex-start;
+}
+
+@media (max-width: 480px) {
+  .boards-list-group {
     flex-direction: column;
-    flex-wrap: wrap;  
+    align-items: stretch;
 
-   .boards-list-group {
-        display:flex;
+    .select-boards-list, .btn-secondary {
+      width: 100%;
+      min-width: auto;
+    }
+  }
+}
 
-      .select-boards-list {
-        min-width:200px;
-        min-height:30px;
-        margin-right:5px;
-     } 
-   } 
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modal-content {
+  background: #222;  /* Dark theme background */
+  padding: 1rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+  position: relative;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
 }

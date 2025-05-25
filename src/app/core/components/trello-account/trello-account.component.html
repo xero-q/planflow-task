@@ -7,29 +7,44 @@
     <select (change)="onBoardSelected($event)" class="select-boards-list">
       <option value="">Select a board</option>
       " @for (board of boardsList(); track board.id) {
-      <option
-        value="{{ board.id }}"
-        [selected]="board.id == stateService.getBoardId()"
-      >
+      <option value="{{ board.id }}">
         {{ board.name }}
       </option>
       }
     </select>
-    <button (click)="loadBoards()" class="btn-secondary">Reload Boards</button>
+    <button
+      (click)="loadBoards()"
+      class="btn-secondary"
+      aria-label="Reload Boards"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 1 1 .908-.417A6 6 0 1 1 8 2v1z"
+        />
+        <path d="M8 1v4l3-3-3-3v4z" />
+      </svg>
+    </button>
   </div>
   }
+  <button
+    (click)="openModal()"
+    class="btn-secondary"
+    [ngStyle]="{ 'margin-top': '0.5rem' }"
+  >
+    Add Board
+  </button>
 </div>
-@if (!displayBoardForm){
-<button (click)="displayBoardForm = true" class="btn-secondary">
-  Add Board
-</button>
-} @if (displayBoardForm){
-<app-form-board (boardAdded)="onBoardAdded()"></app-form-board>
-<button
-  (click)="displayBoardForm = false"
-  class="btn-secondary"
-  [ngStyle]="{ 'margin-top': '10px' }"
->
-  Hide
-</button>
-}
+
+<!-- Modal -->
+<div class="modal-backdrop" *ngIf="displayBoardForm">
+  <div class="modal-content">
+    <button class="modal-close-btn" (click)="closeModal()">×</button>
+    <app-form-board (boardAdded)="onBoardAddedAndClose()"></app-form-board>
+  </div>
+</div>

@@ -1,12 +1,12 @@
 @if (!cardId){
 <div class="trello-card pointer">
-  <h3>Name: {{ card?.name }}</h3>
+  <h3>{{ card?.name }}</h3>
 </div>
 } @if (isLoading){
 <app-loader></app-loader>
 } @if (!isLoading && cardId){
 <div class="trello-card">
-  <h3>Name: {{ card?.name }}</h3>
-  <h3>Desc: {{ card?.desc }}</h3>
+  <h3>{{ card?.name }}</h3>
+  <h3>{{ card?.desc }}</h3>
 </div>
 }

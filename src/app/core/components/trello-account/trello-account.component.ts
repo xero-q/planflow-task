@@ -6,12 +6,12 @@ import TrelloBoard from '../../../shared/interfaces/trello-board';
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../loader/loader.component';
 import { FormBoardComponent } from '../form-board/form-board.component';
-import { NgStyle } from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
 import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'app-trello-account',
-  imports: [LoaderComponent, FormBoardComponent, NgStyle],
+  imports: [LoaderComponent, FormBoardComponent, NgIf, NgStyle],
   templateUrl: './trello-account.component.html',
   styleUrl: './trello-account.component.scss',
 })
@@ -50,5 +50,18 @@ export class TrelloAccountComponent {
     if (event && event.target.value) {
       this.router.navigate(['/trello-board', event.target.value]);
     }
+  }
+
+  openModal() {
+    this.displayBoardForm = true;
+  }
+
+  closeModal() {
+    this.displayBoardForm = false;
+  }
+
+  onBoardAddedAndClose() {
+    this.onBoardAdded();
+    this.closeModal();
   }
 }
