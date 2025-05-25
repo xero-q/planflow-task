@@ -36,9 +36,14 @@ export class TrelloAccountComponent {
       .pipe(
         map((boards: TrelloBoard[]) => boards.filter((board) => !board.closed))
       )
-      .subscribe((boards: TrelloBoard[]) => {
-        this.boardsList.set(boards);
-        this.isLoading = false;
+      .subscribe({
+        next: (boards: TrelloBoard[]) => {
+          this.boardsList.set(boards);
+          this.isLoading = false;
+        },
+        error: (err: any) => {
+          this.isLoading = false;
+        },
       });
   }
 

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import TrelloCard from '../../../shared/interfaces/trello-card';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TrelloService } from '../../services/trello.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { StateService } from '../../services/state.service';
@@ -19,7 +19,8 @@ export class TrelloCardComponent {
   constructor(
     private trelloService: TrelloService,
     private route: ActivatedRoute,
-    private stateService: StateService
+    private stateService: StateService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,5 +41,9 @@ export class TrelloCardComponent {
     } else {
       this.isLoading = false;
     }
+  }
+
+  goToBoard(): void {
+    this.router.navigate(['/trello-board', this.card?.idBoard]);
   }
 }
