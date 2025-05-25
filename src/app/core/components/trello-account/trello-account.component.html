@@ -41,10 +41,8 @@
   </button>
 </div>
 
-<!-- Modal -->
-<div class="modal-backdrop" *ngIf="displayBoardForm">
-  <div class="modal-content">
-    <button class="modal-close-btn" (click)="closeModal()">×</button>
+<ng-container *ngIf="displayBoardForm">
+  <app-modal (closeModal)="closeModal()">
     <app-form-board (boardAdded)="onBoardAddedAndClose()"></app-form-board>
-  </div>
-</div>
+  </app-modal>
+</ng-container>

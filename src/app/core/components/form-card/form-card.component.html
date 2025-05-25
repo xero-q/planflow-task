@@ -1,0 +1,14 @@
+<form [formGroup]="cardForm" (ngSubmit)="onSubmit()" class="form-card">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input id="name" type="text" formControlName="name" />
+
+    <div *ngIf="cardForm.get('name')?.touched && cardForm.get('name')?.invalid">
+      <small *ngIf="cardForm.get('name')?.errors?.['required']">
+        >Name is required.</small
+      >
+    </div>
+  </div>
+
+  <button type="submit" class="btn-primary">Submit</button>
+</form>

@@ -37,8 +37,6 @@ export class FormBoardComponent {
           console.error(err);
         },
       });
-    } else {
-      console.log('Form Invalid');
     }
   }
 }

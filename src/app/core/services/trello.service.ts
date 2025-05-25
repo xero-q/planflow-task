@@ -60,6 +60,17 @@ export class TrelloService {
     return this.httpClient.post<TrelloBoard>(url, null, { params });
   }
 
+  addNewCard(cardName: string, idList: string): Observable<TrelloCard> {
+    const url = 'https://api.trello.com/1/cards/';
+    const params = new HttpParams()
+      .set('name', cardName)
+      .set('idList', idList)
+      .set('key', this.API_KEY)
+      .set('token', this.getToken() ?? '');
+
+    return this.httpClient.post<TrelloCard>(url, null, { params });
+  }
+
   saveToken(token: string) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('trello_token', token);
