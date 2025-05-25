@@ -1,4 +1,6 @@
 .trello-list-container {
+    padding-top:1rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }

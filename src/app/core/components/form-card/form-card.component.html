@@ -1,4 +1,5 @@
 <form [formGroup]="cardForm" (ngSubmit)="onSubmit()" class="form-card">
+  <h3 class="h3-header">Add New Card</h3>
   <div class="form-group">
     <label for="name">Name:</label>
     <input id="name" type="text" formControlName="name" />
@@ -10,5 +11,5 @@
     </div>
   </div>
 
-  <button type="submit" class="btn-primary">Submit</button>
+  <button type="submit" class="btn-secondary full-width">Submit</button>
 </form>

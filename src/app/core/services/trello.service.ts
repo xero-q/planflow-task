@@ -2,10 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import TrelloBoard from '../../shared/interfaces/trello-board';
 import TrelloList from '../../shared/interfaces/trello-list';
 import TrelloCard from '../../shared/interfaces/trello-card';
+import User from '../../shared/interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +14,28 @@ import TrelloCard from '../../shared/interfaces/trello-card';
 export class TrelloService {
   API_KEY = environment.TRELLO_API_KEY;
 
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
+
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
+  public hasToken(): boolean {
+    return !!this.getToken();
+  }
+
   constructor(
     private httpClient: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) {
+    const hasToken = this.hasToken();
+    this.isLoggedInSubject.next(hasToken);
+  }
+
+  getUserInfo(): Observable<User> {
+    const url = `https://api.trello.com/1/members/me?key=${
+      this.API_KEY
+    }&token=${this.getToken()}`;
+    return this.httpClient.get<User>(url);
+  }
 
   getBoards(): Observable<TrelloBoard[]> {
     return this.httpClient.get<TrelloBoard[]>(
@@ -71,9 +90,10 @@ export class TrelloService {
     return this.httpClient.post<TrelloCard>(url, null, { params });
   }
 
-  saveToken(token: string) {
+  login(token: string) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('trello_token', token);
+      this.isLoggedInSubject.next(true);
     }
   }
   getToken() {
@@ -82,9 +102,9 @@ export class TrelloService {
     }
     return null;
   }
-  deleteToken() {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('trello_token');
-    }
+
+  logout() {
+    localStorage.clear();
+    this.isLoggedInSubject.next(false);
   }
 }

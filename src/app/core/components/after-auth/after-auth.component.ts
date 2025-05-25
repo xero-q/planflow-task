@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrelloService } from '../../services/trello.service';
+import User from '../../../shared/interfaces/user';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'app-after-auth',
@@ -12,13 +14,17 @@ export class AfterAuthComponent {
   constructor(
     private route: ActivatedRoute,
     private trelloService: TrelloService,
+    private stateService: StateService,
     private router: Router
   ) {}
 
   ngOnInit() {
     const token = this.route.snapshot.fragment?.split('=')[1];
     if (token) {
-      this.trelloService.saveToken(token);
+      this.trelloService.login(token);
+      this.trelloService.getUserInfo().subscribe((user: User) => {
+        this.stateService.setFullName(user.fullName);
+      });
     }
     this.router.navigate(['/dashboard']);
   }

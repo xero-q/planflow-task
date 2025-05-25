@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class StateService {
   boardId: string = '';
+  fullName: string = '';
   constructor() {}
 
   setBoardId(id: string): void {
@@ -12,5 +13,12 @@ export class StateService {
   }
   getBoardId(): string {
     return this.boardId;
+  }
+
+  setFullName(name: string): void {
+    this.fullName = name;
+  }
+  getFullName(): string {
+    return this.fullName;
   }
 }
