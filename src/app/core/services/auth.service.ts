@@ -11,7 +11,7 @@ export class AuthService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.isLoggedInSubject.next(!!this.getToken);
+    this.isLoggedInSubject.next(!!this.getToken());
   }
 
   login(token: string) {
