@@ -46,7 +46,9 @@ export class TrelloListComponent {
           this.list.idBoard,
           this.list.id,
           this.list.name,
-          cards.length
+          cards.map((card) => {
+            return { name: card.name, description: card.desc };
+          })
         );
       },
       error: () => {

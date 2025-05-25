@@ -1,3 +1,18 @@
+<div class="ai-container">
+  <button class="btn-secondary" (click)="doAskBoardRecommendation()">
+    Ask AI Recommendation
+  </button>
+  @if (boardRecommnedation){
+  <ng-container *ngIf="displayGeminiResponse">
+    <app-modal (closeModal)="closeModal()">
+      <div class="gemini-response">
+        {{ boardRecommnedation }}
+      </div>
+    </app-modal>
+  </ng-container>
+
+  }
+</div>
 <div class="trello-list-container">
   @if (isLoading) {
   <app-loader></app-loader>
@@ -5,7 +20,7 @@
   <div class="metrics">
     @for (metric of getBoardMetrics(); track metric.name) {
     <div>
-      <strong>{{ metric.name }}: {{ metric.totalCards }}</strong>
+      <strong>{{ metric.name }}: {{ metric.cards.length }}</strong>
     </div>
     }
   </div>

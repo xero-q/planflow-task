@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ListMetrics, UserMetrics } from '../../shared/interfaces/metrics';
+import {
+  CardMetrics,
+  ListMetrics,
+  UserMetrics,
+} from '../../shared/interfaces/metrics';
 
 @Injectable({
   providedIn: 'root',
@@ -12,24 +16,30 @@ export class MetricsService {
     boardId: string,
     listId: string,
     listName: string,
-    totalCards: number
+    cards: CardMetrics[]
   ) {
     const board = this.userMetrics.boards.find((b) => b.id === boardId);
     if (board) {
       const list = board.lists.find((l: ListMetrics) => l.name === listName);
       if (list) {
-        list.totalCards = totalCards;
+        list.cards = [...cards];
       } else {
         board.lists.push({
           id: listId,
           name: listName,
-          totalCards: totalCards,
+          cards: [...cards],
         });
       }
     } else {
       this.userMetrics.boards.push({
         id: boardId,
-        lists: [{ id: listId, name: listName, totalCards: totalCards }],
+        lists: [
+          {
+            id: listId,
+            name: listName,
+            cards: [...cards],
+          },
+        ],
       });
     }
   }

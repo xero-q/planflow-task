@@ -8,17 +8,24 @@ import { LoaderComponent } from '../loader/loader.component';
 import { StateService } from '../../services/state.service';
 import { ToastrService } from 'ngx-toastr';
 import { MetricsService } from '../../services/metrics.service';
-import { BoardMetrics, ListMetrics } from '../../../shared/interfaces/metrics';
+import { ListMetrics } from '../../../shared/interfaces/metrics';
+import { GeminiService } from '../../services/gemini.service';
+import { environment } from '../../../../environments/environment.development';
+import { AuthService } from '../../services/auth.service';
+import { ModalComponent } from '../modal/modal.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-trello-board',
-  imports: [TrelloListComponent, LoaderComponent],
+  imports: [TrelloListComponent, LoaderComponent, ModalComponent, NgIf],
   templateUrl: './trello-board.component.html',
   styleUrl: './trello-board.component.scss',
 })
 export class TrelloBoardComponent {
   boardId: string | null = null;
   isLoading = true;
+  boardRecommnedation: string | null = null;
+  displayGeminiResponse = false;
 
   tasksLists: WritableSignal<TrelloList[]> = signal([]);
 
@@ -28,7 +35,9 @@ export class TrelloBoardComponent {
     private router: Router,
     private stateService: StateService,
     private toastr: ToastrService,
-    public metricsService: MetricsService
+    public metricsService: MetricsService,
+    private geminiService: GeminiService,
+    private authService: AuthService
   ) {}
 
   getBoardMetrics(): ListMetrics[] {
@@ -62,5 +71,37 @@ export class TrelloBoardComponent {
           });
       }
     });
+  }
+
+  getBoardRecommendation(prompt: string) {
+    this.geminiService.sendPrompt(prompt).subscribe({
+      next: (response: any) => {
+        this.boardRecommnedation = response.candidates[0].content.parts[0].text;
+        this.openModal();
+      },
+      error: () => {
+        this.toastr.warning('Error when querying Gemini API', 'Warning');
+      },
+    });
+  }
+
+  doAskBoardRecommendation() {
+    const boardMetrics = this.metricsService.getBoardMetrics(
+      this.boardId ?? ''
+    );
+    const prompt = `Here it is a JSON stringified of my lists and theirs cards of a Trello board: ${JSON.stringify(
+      boardMetrics,
+      null,
+      2
+    )}. I want you to give me some recommnedation based on that, just include in your response the text of the recommendation`;
+    this.getBoardRecommendation(prompt);
+  }
+
+  openModal() {
+    this.displayGeminiResponse = true;
+  }
+
+  closeModal() {
+    this.displayGeminiResponse = false;
   }
 }

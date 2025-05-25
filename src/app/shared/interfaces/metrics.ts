@@ -1,7 +1,12 @@
+interface CardMetrics {
+  name: string;
+  description: string;
+}
+
 interface ListMetrics {
   id: string;
   name: string;
-  totalCards: number;
+  cards: CardMetrics[];
 }
 
 interface BoardMetrics {
@@ -13,4 +18,4 @@ interface UserMetrics {
   boards: BoardMetrics[];
 }
 
-export type { ListMetrics, BoardMetrics, UserMetrics };
+export type { CardMetrics, ListMetrics, BoardMetrics, UserMetrics };
