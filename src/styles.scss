@@ -1,6 +1,6 @@
 @use 'sass:color';
-@use 'classes';
-@import 'variables';
+@import './styles/classes';
+@import './styles/variables';
 
 body {
   background-color: $color-bg;

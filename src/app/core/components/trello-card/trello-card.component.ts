@@ -8,7 +8,6 @@ import { NgIf, NgStyle } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { FormCardComponent } from '../form-card/form-card.component';
 import { ToastrService } from 'ngx-toastr';
-import { urlToHttpOptions } from 'url';
 
 @Component({
   selector: 'app-trello-card',

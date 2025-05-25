@@ -1,7 +1,4 @@
-@use 'classes';
-
 h3.return-link {
-  @extend .h3-header;
   cursor:pointer;
 }
 
