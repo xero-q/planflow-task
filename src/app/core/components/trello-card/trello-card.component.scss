@@ -1,19 +1,16 @@
+@use 'classes';
+
 h3.return-link {
-    margin-bottom: 1rem;
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #bb86fc;
-    cursor: pointer;
-  }
+  @extend .h3-header;
+  cursor:pointer;
+}
 
 .trello-card {
   background-color: #222;
   border: 1px solid #444;
   border-radius: 0.75rem;
-  min-width: 280px;
   max-width: 400px;
   padding: 1rem 1.25rem;
-  margin-right: 0.75rem;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
   color: #ddd;
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
