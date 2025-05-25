@@ -1,10 +1,21 @@
 <div class="trello-list-container">
-  @if (isLoading){
+  @if (isLoading) {
   <app-loader></app-loader>
-  } @if (!isLoading && tasksLists().length > 0){ @for (list of tasksLists();
-  track list.id) {
-  <app-trello-list [list]="list"></app-trello-list>
-  } } @if (!isLoading && tasksLists().length === 0) {
-  <h1>No lists</h1>
-  }
+  } @else { @if (getBoardMetrics().length > 0) {
+  <div class="metrics">
+    @for (metric of getBoardMetrics(); track metric.name) {
+    <div>
+      <strong>{{ metric.name }}: {{ metric.totalCards }}</strong>
+    </div>
+    }
+  </div>
+  } @if (tasksLists().length > 0) {
+  <div class="trello-lists">
+    @for (list of tasksLists(); track list.id) {
+    <app-trello-list [list]="list"></app-trello-list>
+    }
+  </div>
+  } @else {
+  <div class="trello-lists"><h1>No lists</h1></div>
+  } }
 </div>

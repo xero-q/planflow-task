@@ -8,6 +8,7 @@ import { NgIf, NgStyle } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { FormCardComponent } from '../form-card/form-card.component';
 import { ToastrService } from 'ngx-toastr';
+import { MetricsService } from '../../services/metrics.service';
 
 @Component({
   selector: 'app-trello-list',
@@ -28,6 +29,7 @@ export class TrelloListComponent {
 
   constructor(
     private trelloService: TrelloService,
+    private metricsService: MetricsService,
     private router: Router,
     private toastr: ToastrService
   ) {}
@@ -40,6 +42,12 @@ export class TrelloListComponent {
     this.trelloService.getCards(this.list.id).subscribe({
       next: (cards: TrelloCard[]) => {
         this.cardsList.set(cards);
+        this.metricsService.addBoardMetrics(
+          this.list.idBoard,
+          this.list.id,
+          this.list.name,
+          cards.length
+        );
       },
       error: () => {
         this.toastr.error('Error loading cards', 'Error');

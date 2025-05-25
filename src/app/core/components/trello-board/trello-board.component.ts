@@ -7,6 +7,8 @@ import { TrelloListComponent } from '../trello-list/trello-list.component';
 import { LoaderComponent } from '../loader/loader.component';
 import { StateService } from '../../services/state.service';
 import { ToastrService } from 'ngx-toastr';
+import { MetricsService } from '../../services/metrics.service';
+import { BoardMetrics, ListMetrics } from '../../../shared/interfaces/metrics';
 
 @Component({
   selector: 'app-trello-board',
@@ -25,8 +27,16 @@ export class TrelloBoardComponent {
     private route: ActivatedRoute,
     private router: Router,
     private stateService: StateService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public metricsService: MetricsService
   ) {}
+
+  getBoardMetrics(): ListMetrics[] {
+    const boardMetrics = this.metricsService.getBoardMetrics(
+      this.boardId ?? ''
+    );
+    return boardMetrics;
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
