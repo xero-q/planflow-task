@@ -1,15 +1,26 @@
 <form [formGroup]="cardForm" (ngSubmit)="onSubmit()" class="form-card">
-  <h3 class="h3-header">Add New Card</h3>
+  <h3 class="h3-header">{{ !card ? "Add New Card" : "Update Card" }}</h3>
   <div class="form-group">
     <label for="name">Name:</label>
     <input id="name" type="text" formControlName="name" />
 
-    <div *ngIf="cardForm.get('name')?.touched && cardForm.get('name')?.invalid">
+    <div
+      *ngIf="
+        cardForm.get('name')?.invalid &&
+        (cardForm.get('name')?.touched || cardForm.get('name')?.dirty)
+      "
+    >
       <small *ngIf="cardForm.get('name')?.errors?.['required']">
-        >Name is required.</small
+        Name is required</small
       >
     </div>
   </div>
+  @if (card) {
+  <div class="form-group">
+    <label for="desc">Description:</label>
+    <input id="desc" type="text" formControlName="desc" />
+  </div>
+  }
 
   <button type="submit" class="btn-secondary full-width">Submit</button>
 </form>

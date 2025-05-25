@@ -18,7 +18,9 @@ export class FormBoardComponent {
   boardForm!: FormGroup;
   @Output('boardAdded') boardAdded = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder, private trelloService: TrelloService) {
+  constructor(private fb: FormBuilder, private trelloService: TrelloService) {}
+
+  ngOnInit() {
     this.boardForm = this.fb.group({
       name: ['', Validators.required],
     });
@@ -37,6 +39,8 @@ export class FormBoardComponent {
           console.error(err);
         },
       });
+    } else {
+      this.boardForm.markAllAsTouched;
     }
   }
 }

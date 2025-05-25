@@ -1,12 +1,13 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { TrelloService } from '../services/trello.service';
 import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const trelloService = inject(TrelloService);
-  const trelloToken = trelloService.getToken();
+  const authService = inject(AuthService);
+  const token = authService.getToken();
 
-  if (trelloToken) {
+  if (token) {
     return true;
   } else {
     const router = inject(Router);

@@ -4,13 +4,14 @@
     <label for="name">Name:</label>
     <input id="name" type="text" formControlName="name" />
 
-    <div
-      *ngIf="boardForm.get('name')?.touched && boardForm.get('name')?.invalid"
+    <small
+      *ngIf="
+        boardForm.get('name')?.invalid &&
+        (boardForm.get('name')?.touched || boardForm.get('name')?.dirty)
+      "
     >
-      <small *ngIf="boardForm.get('name')?.errors?.['required']"
-        >Name is required.</small
-      >
-    </div>
+      Name is required
+    </small>
   </div>
 
   <button type="submit" class="btn-secondary full-width">Submit</button>

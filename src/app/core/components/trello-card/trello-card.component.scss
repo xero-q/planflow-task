@@ -5,6 +5,11 @@ h3.return-link {
   cursor:pointer;
 }
 
+.trello-card-container {
+  padding-left:1rem;
+  max-width: 400px;  
+}
+
 .trello-card {
   background-color: #222;
   border: 1px solid #444;
@@ -28,5 +33,9 @@ h3.return-link {
     margin: 0.25rem 0;
     font-weight: 600;
     user-select: none;
+
+    &:nth-child(2){
+      font-style: italic;
+    }
   }
 }

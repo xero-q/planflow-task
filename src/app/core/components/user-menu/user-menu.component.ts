@@ -1,8 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrelloService } from '../../services/trello.service';
 import { NgIf } from '@angular/common';
 import { StateService } from '../../services/state.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -15,7 +15,7 @@ export class UserMenuComponent {
 
   constructor(
     private router: Router,
-    private trelloService: TrelloService,
+    private authService: AuthService,
     public stateService: StateService
   ) {}
 
@@ -33,7 +33,7 @@ export class UserMenuComponent {
   }
 
   logout(): void {
-    this.trelloService.logout();
+    this.authService.logout();
     this.router.navigate(['/login']);
     this.closeMenu();
   }

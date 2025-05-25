@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TrelloService } from '../../services/trello.service';
+import TrelloCard from '../../../shared/interfaces/trello-card';
 
 @Component({
   selector: 'app-form-card',
@@ -17,27 +18,53 @@ import { TrelloService } from '../../services/trello.service';
 export class FormCardComponent {
   cardForm!: FormGroup;
   @Input('idList') idList!: string;
-  @Output('cardAdded') cardAdded = new EventEmitter<void>();
+  @Input('card') card: TrelloCard | null = null;
+  @Output('cardAddedUpdated') cardAddedUpdated = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder, private trelloService: TrelloService) {
-    this.cardForm = this.fb.group({
-      name: ['', Validators.required],
-    });
+  constructor(private fb: FormBuilder, private trelloService: TrelloService) {}
+
+  ngOnInit() {
+    this.cardForm = !this.card
+      ? this.fb.group({
+          name: ['', Validators.required],
+        })
+      : this.fb.group({
+          name: [this.card?.name, Validators.required],
+          desc: [this.card?.desc],
+        });
   }
 
   onSubmit() {
     if (this.cardForm.valid) {
-      const name = this.cardForm.get('name')?.value.trim();
-      this.trelloService.addNewCard(name, this.idList).subscribe({
-        next: () => {
-          this.cardAdded.emit();
-          this.cardForm.reset();
-        },
-        error: (err) => {
-          //TODO: Add error handling;
-          console.error(err);
-        },
-      });
+      if (!this.card) {
+        //Adding
+        const name = this.cardForm.get('name')?.value.trim();
+        this.trelloService.addNewCard(name, this.idList).subscribe({
+          next: () => {
+            this.cardAddedUpdated.emit();
+            this.cardForm.reset();
+          },
+          error: (err) => {
+            //TODO: Add error handling;
+            console.error(err);
+          },
+        });
+      } else {
+        const name = this.cardForm.get('name')?.value.trim();
+        const desc = this.cardForm.get('desc')?.value.trim();
+        this.trelloService.updateCard(this.card?.id, name, desc).subscribe({
+          next: () => {
+            this.cardAddedUpdated.emit();
+            this.cardForm.reset();
+          },
+          error: (err: any) => {
+            //TODO: Add error handling;
+            console.error(err);
+          },
+        });
+      }
+    } else {
+      this.cardForm.markAllAsTouched();
     }
   }
 }

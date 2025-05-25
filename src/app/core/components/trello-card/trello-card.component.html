@@ -5,9 +5,28 @@
 } @if (isLoading){
 <app-loader></app-loader>
 } @if (!isLoading && cardId){
-<h3 class="return-link" (click)="goToBoard()">Return to Board</h3>
-<div class="trello-card">
-  <h3>{{ card?.name }}</h3>
-  <h3>{{ card?.desc }}</h3>
+<div class="trello-card-container">
+  <h3 class="return-link" (click)="goToBoard()">Return to Board</h3>
+  <div class="trello-card">
+    <h3>{{ card?.name }}</h3>
+    <h3>{{ card?.desc }}</h3>
+  </div>
+
+  <button
+    (click)="openModal()"
+    class="btn-secondary full-width"
+    [ngStyle]="{ 'margin-top': '0.5rem' }"
+  >
+    Edit Card
+  </button>
 </div>
 }
+
+<ng-container *ngIf="displayCardForm && card">
+  <app-modal (closeModal)="closeModal()">
+    <app-form-card
+      (cardAddedUpdated)="onCardUpdatedAndClose()"
+      [card]="card"
+    ></app-form-card>
+  </app-modal>
+</ng-container>

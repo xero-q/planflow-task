@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TrelloService } from './core/services/trello.service';
 import { TrelloAccountComponent } from './core/components/trello-account/trello-account.component';
 import { UserMenuComponent } from './core/components/user-menu/user-menu.component';
+import { AuthService } from './core/services/auth.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,25 @@ import { UserMenuComponent } from './core/components/user-menu/user-menu.compone
 })
 export class AppComponent {
   title = 'planflow';
-  trelloService = inject(TrelloService);
+  authService = inject(AuthService);
 
-  isLoggedIn = this.trelloService.hasToken();
+  isLoggedIn = !!this.authService.getToken();
+
+  constructor(private meta: Meta, private titleService: Title) {}
 
   ngOnInit() {
-    this.trelloService.isLoggedIn$.subscribe((loggedIn) => {
+    this.authService.isLoggedIn$.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
     });
+
+    this.titleService.setTitle('PlanFlow - Anibal Sanchez');
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'This App allows to manage your Trello account',
+      },
+      { name: 'keywords', content: 'Trello, Treew Inc., Anibal Sanchez' },
+      { name: 'author', content: 'Anibal Sanchez Numa' },
+    ]);
   }
 }
