@@ -20,6 +20,6 @@ export class AfterAuthComponent {
     if (token) {
       this.trelloService.saveToken(token);
     }
-    this.router.navigate(['/trello-account']);
+    this.router.navigate(['/dashboard']);
   }
 }
