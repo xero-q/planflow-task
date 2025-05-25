@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { TrelloService } from '../../services/trello.service';
 import TrelloCard from '../../../shared/interfaces/trello-card';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form-card',
@@ -21,7 +22,11 @@ export class FormCardComponent {
   @Input('card') card: TrelloCard | null = null;
   @Output('cardAddedUpdated') cardAddedUpdated = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder, private trelloService: TrelloService) {}
+  constructor(
+    private fb: FormBuilder,
+    private trelloService: TrelloService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.cardForm = !this.card
@@ -44,9 +49,8 @@ export class FormCardComponent {
             this.cardAddedUpdated.emit();
             this.cardForm.reset();
           },
-          error: (err) => {
-            //TODO: Add error handling;
-            console.error(err);
+          error: () => {
+            this.toastr.error('Error while creating card', 'Error');
           },
         });
       } else {
@@ -57,9 +61,8 @@ export class FormCardComponent {
             this.cardAddedUpdated.emit();
             this.cardForm.reset();
           },
-          error: (err: any) => {
-            //TODO: Add error handling;
-            console.error(err);
+          error: () => {
+            this.toastr.error('Error while updating card', 'Error');
           },
         });
       }

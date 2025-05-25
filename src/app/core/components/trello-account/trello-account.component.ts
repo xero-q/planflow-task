@@ -1,7 +1,6 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { TrelloService } from '../../services/trello.service';
 import { map } from 'rxjs';
-import { TrelloBoardComponent } from '../trello-board/trello-board.component';
 import TrelloBoard from '../../../shared/interfaces/trello-board';
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../loader/loader.component';
@@ -9,6 +8,7 @@ import { FormBoardComponent } from '../form-board/form-board.component';
 import { NgIf, NgStyle } from '@angular/common';
 import { StateService } from '../../services/state.service';
 import { ModalComponent } from '../modal/modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-trello-account',
@@ -24,7 +24,8 @@ export class TrelloAccountComponent {
   constructor(
     private trelloService: TrelloService,
     private router: Router,
-    public stateService: StateService
+    public stateService: StateService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -42,8 +43,9 @@ export class TrelloAccountComponent {
           this.boardsList.set(boards);
           this.isLoading = false;
         },
-        error: (err: any) => {
+        error: () => {
           this.isLoading = false;
+          this.toastr.error('Error loading boards', 'Error');
         },
       });
   }

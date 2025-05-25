@@ -7,6 +7,8 @@ import { StateService } from '../../services/state.service';
 import { NgIf, NgStyle } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { FormCardComponent } from '../form-card/form-card.component';
+import { ToastrService } from 'ngx-toastr';
+import { urlToHttpOptions } from 'url';
 
 @Component({
   selector: 'app-trello-card',
@@ -24,7 +26,8 @@ export class TrelloCardComponent {
     private trelloService: TrelloService,
     private route: ActivatedRoute,
     private stateService: StateService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -38,13 +41,18 @@ export class TrelloCardComponent {
           this.cardId = params.get('id');
 
           if (this.cardId) {
-            this.trelloService
-              .getSingleCard(this.cardId)
-              .subscribe((card: TrelloCard) => {
+            this.trelloService.getSingleCard(this.cardId).subscribe({
+              next: (card: TrelloCard) => {
                 this.card = { ...card };
                 this.stateService.setBoardId(this.card.idBoard);
                 this.isLoading = false;
-              });
+              },
+              error: () => {
+                this.isLoading = false;
+                this.toastr.error('Error loading card', 'Error');
+                this.router.navigate(['/dashboard']);
+              },
+            });
           }
         });
       } else {
@@ -52,13 +60,18 @@ export class TrelloCardComponent {
       }
     } else {
       this.isLoading = true;
-      this.trelloService
-        .getSingleCard(this.cardId ?? '')
-        .subscribe((card: TrelloCard) => {
+      this.trelloService.getSingleCard(this.cardId ?? '').subscribe({
+        next: (card: TrelloCard) => {
           this.card = { ...card };
           this.stateService.setBoardId(this.card.idBoard);
           this.isLoading = false;
-        });
+        },
+        error: () => {
+          this.isLoading = false;
+          this.toastr.error('Error loading card', 'Error');
+          this.router.navigate(['/trello-board', this.card?.idBoard]);
+        },
+      });
     }
   }
 

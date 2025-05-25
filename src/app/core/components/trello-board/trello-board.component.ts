@@ -1,12 +1,12 @@
 import { Component, Input, signal, WritableSignal } from '@angular/core';
-import TrelloBoard from '../../../shared/interfaces/trello-board';
 import { TrelloService } from '../../services/trello.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import TrelloList from '../../../shared/interfaces/trello-list';
 import { map } from 'rxjs';
 import { TrelloListComponent } from '../trello-list/trello-list.component';
 import { LoaderComponent } from '../loader/loader.component';
 import { StateService } from '../../services/state.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-trello-board',
@@ -23,7 +23,9 @@ export class TrelloBoardComponent {
   constructor(
     private trelloService: TrelloService,
     private route: ActivatedRoute,
-    private stateService: StateService
+    private router: Router,
+    private stateService: StateService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -37,9 +39,16 @@ export class TrelloBoardComponent {
           .pipe(
             map((lists: TrelloList[]) => lists.filter((list) => !list.closed))
           )
-          .subscribe((lists: TrelloList[]) => {
-            this.tasksLists.set(lists);
-            this.isLoading = false;
+          .subscribe({
+            next: (lists: TrelloList[]) => {
+              this.tasksLists.set(lists);
+              this.isLoading = false;
+            },
+            error: () => {
+              this.toastr.error('Error loading board', 'Error');
+              this.isLoading = false;
+              this.router.navigate(['/dashboard']);
+            },
           });
       }
     });

@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TrelloService } from '../../services/trello.service';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form-board',
@@ -18,7 +19,11 @@ export class FormBoardComponent {
   boardForm!: FormGroup;
   @Output('boardAdded') boardAdded = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder, private trelloService: TrelloService) {}
+  constructor(
+    private fb: FormBuilder,
+    private trelloService: TrelloService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.boardForm = this.fb.group({
@@ -34,9 +39,8 @@ export class FormBoardComponent {
           this.boardAdded.emit();
           this.boardForm.reset();
         },
-        error: (err) => {
-          //TODO: Add error handling;
-          console.error(err);
+        error: () => {
+          this.toastr.error('Error while creating board', 'Error');
         },
       });
     } else {

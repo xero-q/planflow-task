@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { NgIf, NgStyle } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { FormCardComponent } from '../form-card/form-card.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-trello-list',
@@ -25,15 +26,24 @@ export class TrelloListComponent {
   cardsList: WritableSignal<TrelloCard[]> = signal([]);
   displayCardForm = false;
 
-  constructor(private trelloService: TrelloService, private router: Router) {}
+  constructor(
+    private trelloService: TrelloService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.loadCards();
   }
 
   loadCards(): void {
-    this.trelloService.getCards(this.list.id).subscribe((cards) => {
-      this.cardsList.set(cards);
+    this.trelloService.getCards(this.list.id).subscribe({
+      next: (cards: TrelloCard[]) => {
+        this.cardsList.set(cards);
+      },
+      error: () => {
+        this.toastr.error('Error loading cards', 'Error');
+      },
     });
   }
 
