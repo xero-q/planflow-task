@@ -1,13 +1,22 @@
 <div class="boards-list">
   @if (isLoading){
   <app-loader></app-loader>
-  } @for (board of boardsList(); track board.id) {
-  <app-trello-board
-    [board]="board"
-    (click)="onBoardClick(board.id)"
-  ></app-trello-board>
-  } @if (!isLoading && boardsList().length === 0) {
-  <h1>No boards</h1>
+  } @if (!isLoading){
+  <h3>Boards List</h3>
+  <div class="boards-list-group">
+    <select (change)="onBoardSelected($event)" class="select-boards-list">
+      <option value="">Select a board</option>
+      " @for (board of boardsList(); track board.id) {
+      <option
+        value="{{ board.id }}"
+        [selected]="board.id == stateService.getBoardId()"
+      >
+        {{ board.name }}
+      </option>
+      }
+    </select>
+    <button (click)="loadBoards()" class="btn-secondary">Reload Boards</button>
+  </div>
   }
 </div>
 @if (!displayBoardForm){

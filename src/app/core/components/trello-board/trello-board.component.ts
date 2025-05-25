@@ -5,7 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import TrelloList from '../../../shared/interfaces/trello-list';
 import { map } from 'rxjs';
 import { TrelloListComponent } from '../trello-list/trello-list.component';
-import { LoaderComponent } from "../loader/loader.component";
+import { LoaderComponent } from '../loader/loader.component';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'app-trello-board',
@@ -14,15 +15,15 @@ import { LoaderComponent } from "../loader/loader.component";
   styleUrl: './trello-board.component.scss',
 })
 export class TrelloBoardComponent {
-  @Input('board') board: TrelloBoard | null = null;
   boardId: string | null = null;
-  isLoading = this.board == null;
+  isLoading = true;
 
   tasksLists: WritableSignal<TrelloList[]> = signal([]);
 
   constructor(
     private trelloService: TrelloService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private stateService: StateService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class TrelloBoardComponent {
       this.boardId = params.get('id');
 
       if (this.boardId) {
+        this.stateService.setBoardId(this.boardId);
         this.trelloService
           .getLists(this.boardId)
           .pipe(

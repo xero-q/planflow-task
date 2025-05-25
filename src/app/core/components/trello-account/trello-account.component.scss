@@ -1,14 +1,15 @@
 .boards-list {
     display:flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    gap:0.5rem;
-    height: 100%;
-    margin-left:auto;
-    margin-right:auto;
+    flex-wrap: wrap;  
 
-    @media (min-width: 600px) {
-        flex-direction: row;
-    }
+   .boards-list-group {
+        display:flex;
+
+      .select-boards-list {
+        min-width:200px;
+        min-height:30px;
+        margin-right:5px;
+     } 
+   } 
 }

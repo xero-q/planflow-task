@@ -3,6 +3,7 @@ import TrelloCard from '../../../shared/interfaces/trello-card';
 import { ActivatedRoute } from '@angular/router';
 import { TrelloService } from '../../services/trello.service';
 import { LoaderComponent } from '../loader/loader.component';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'app-trello-card',
@@ -17,7 +18,8 @@ export class TrelloCardComponent {
 
   constructor(
     private trelloService: TrelloService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private stateService: StateService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class TrelloCardComponent {
             .getSingleCard(this.cardId)
             .subscribe((card: TrelloCard) => {
               this.card = { ...card };
+              this.stateService.setBoardId(this.card.idBoard);
               this.isLoading = false;
             });
         }

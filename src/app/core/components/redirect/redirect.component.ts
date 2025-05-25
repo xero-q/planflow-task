@@ -14,6 +14,6 @@ export class RedirectComponent {
     const router = inject(Router);
     const token = trelloService.getToken();
 
-    router.navigate([token ? '/trello-account' : '/login']);
+    router.navigate([token ? '/dashboard' : '/login']);
   }
 }

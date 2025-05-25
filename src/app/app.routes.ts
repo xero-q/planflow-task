@@ -6,6 +6,7 @@ import { TrelloBoardComponent } from './core/components/trello-board/trello-boar
 import { TrelloCardComponent } from './core/components/trello-card/trello-card.component';
 import { authGuard } from './core/guards/auth.guard';
 import { RedirectComponent } from './core/components/redirect/redirect.component';
+import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -21,8 +22,8 @@ export const routes: Routes = [
     component: AfterAuthComponent,
   },
   {
-    path: 'trello-account',
-    component: TrelloAccountComponent,
+    path: 'dashboard',
+    component: DashboardComponent,
     canActivate: [authGuard],
   },
   {

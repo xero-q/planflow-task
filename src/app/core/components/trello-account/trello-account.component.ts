@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 import { LoaderComponent } from '../loader/loader.component';
 import { FormBoardComponent } from '../form-board/form-board.component';
 import { NgStyle } from '@angular/common';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'app-trello-account',
-  imports: [TrelloBoardComponent, LoaderComponent, FormBoardComponent, NgStyle],
+  imports: [LoaderComponent, FormBoardComponent, NgStyle],
   templateUrl: './trello-account.component.html',
   styleUrl: './trello-account.component.scss',
 })
@@ -19,7 +20,11 @@ export class TrelloAccountComponent {
   isLoading = true;
   displayBoardForm = false;
 
-  constructor(private trelloService: TrelloService, private router: Router) {}
+  constructor(
+    private trelloService: TrelloService,
+    private router: Router,
+    public stateService: StateService
+  ) {}
 
   ngOnInit() {
     this.loadBoards();
@@ -37,11 +42,13 @@ export class TrelloAccountComponent {
       });
   }
 
-  onBoardClick(boardId: string) {
-    this.router.navigate(['/trello-board', boardId]);
-  }
-
   onBoardAdded() {
     this.loadBoards();
+  }
+
+  onBoardSelected(event: any) {
+    if (event && event.target.value) {
+      this.router.navigate(['/trello-board', event.target.value]);
+    }
   }
 }
