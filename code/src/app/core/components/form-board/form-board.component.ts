@@ -17,7 +17,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TrelloService } from '../../services/trello.service';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 /**
  * Component that provides a form for creating new Trello boards

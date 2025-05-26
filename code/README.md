@@ -30,3 +30,4 @@ ng test
 - Modals can be closed by pressing Escape
 - Created component for displaying loading state
 - Used `localStorage` for saving user data and Trello token
+- Implemented unit and integration tests for components `FormCard` and `FormBoard`
