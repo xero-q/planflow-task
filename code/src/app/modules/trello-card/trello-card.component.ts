@@ -129,6 +129,13 @@ export class TrelloCardComponent implements OnInit {
   }
 
   /**
+   * Navigates to the board view
+   */
+  goToCard(): void {
+    this.router.navigate(['/trello-card', this.card?.id]);
+  }
+
+  /**
    * Opens the card edit form
    */
   openModal(): void {
@@ -149,5 +156,16 @@ export class TrelloCardComponent implements OnInit {
   onCardUpdatedAndClose(): void {
     this.loadCard(true);
     this.closeModal();
+  }
+
+  /**
+   * Handles Enter or Space on Card
+   * @param event - Keyboard event object
+   */
+  onKeydownCard(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.goToCard();
+    }
   }
 }
