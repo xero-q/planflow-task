@@ -7,8 +7,6 @@
   <h3 class="h3-header" id="form-card-title">
     {{ !card ? "Add New Card" : "Update Card" }}
   </h3>
-
-  <!-- Name Field -->
   <div class="form-group">
     <label for="name">Name:</label>
     <input
@@ -39,12 +37,13 @@
 
   <div class="form-group">
     <label for="desc">Description:</label>
-    <input
+    <textarea
       id="desc"
       type="text"
       formControlName="desc"
       aria-label="Card description"
-    />
+      rows="5"
+    ></textarea>
   </div>
 
   <button type="submit" class="btn-secondary full-width">

@@ -16,7 +16,7 @@
       color: #a0a0c0;
     }
 
-    input {
+    input,textarea {
       margin-bottom: 5px;
       padding: 0.5rem 0.75rem;
       border: 1.5px solid #44475a;
@@ -31,6 +31,10 @@
         border-color: #6272a4;
         box-shadow: 0 0 8px #6272a4;
       }
+    }
+
+    textarea {
+      resize:none;
     }
 
     small.error-message {
