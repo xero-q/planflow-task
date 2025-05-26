@@ -1,0 +1,12 @@
+<div class="page">
+  <header>
+    <div class="header-account" *ngIf="isLoggedIn">
+      <app-user-menu></app-user-menu>
+      <app-trello-account></app-trello-account>
+    </div>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <footer>&copy; {{ currentYear }} - Anibal Sanchez Numa</footer>
+</div>
