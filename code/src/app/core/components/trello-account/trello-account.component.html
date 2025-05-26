@@ -1,7 +1,4 @@
 <div class="boards-list">
-  @if (isLoading){
-  <app-loader></app-loader>
-  } @if (!isLoading){
   <h3 class="h3-header">Boards List</h3>
   <div class="boards-list-group">
     <select (change)="onBoardSelected($event)" class="select-boards-list">
@@ -34,7 +31,10 @@
       </svg>
     </button>
   </div>
+  @if (isLoading){
+  <app-loader></app-loader>
   }
+
   <button
     (click)="openModal()"
     class="btn-secondary full-width"

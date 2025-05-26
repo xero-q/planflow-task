@@ -66,6 +66,8 @@ export class TrelloAccountComponent implements OnInit {
    * Filters out closed boards and updates the boards list
    */
   loadBoards(): void {
+    this.isLoading = true;
+
     this.trelloService
       .getBoards()
       .pipe(
