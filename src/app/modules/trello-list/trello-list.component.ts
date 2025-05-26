@@ -1,14 +1,14 @@
 import { Component, Input, signal, WritableSignal } from '@angular/core';
-import TrelloList from '../../../shared/interfaces/trello-list';
-import { TrelloService } from '../../services/trello.service';
-import TrelloCard from '../../../shared/interfaces/trello-card';
 import { TrelloCardComponent } from '../trello-card/trello-card.component';
 import { Router } from '@angular/router';
 import { NgIf, NgStyle } from '@angular/common';
-import { ModalComponent } from '../modal/modal.component';
-import { FormCardComponent } from '../form-card/form-card.component';
 import { ToastrService } from 'ngx-toastr';
-import { StateService } from '../../services/state.service';
+import { ModalComponent } from '../../core/components/modal/modal.component';
+import { FormCardComponent } from '../../core/components/form-card/form-card.component';
+import TrelloList from '../../shared/interfaces/trello-list';
+import { TrelloService } from '../../core/services/trello.service';
+import { StateService } from '../../core/services/state.service';
+import TrelloCard from '../../shared/interfaces/trello-card';
 
 @Component({
   selector: 'app-trello-list',

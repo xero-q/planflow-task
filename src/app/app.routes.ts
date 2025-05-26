@@ -35,7 +35,7 @@ export const routes: Routes = [
     path: 'trello-board/:id',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./core/components/trello-board/trello-board.component').then(
+      import('./modules/trello-board/trello-board.component').then(
         (m) => m.TrelloBoardComponent
       ),
   },
@@ -43,7 +43,7 @@ export const routes: Routes = [
     path: 'trello-card/:id',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./core/components/trello-card/trello-card.component').then(
+      import('./modules/trello-card/trello-card.component').then(
         (m) => m.TrelloCardComponent
       ),
   },

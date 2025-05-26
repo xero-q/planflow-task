@@ -1,18 +1,18 @@
 import { Component, Input, signal, WritableSignal } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
-import { TrelloService } from '../../services/trello.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import TrelloList from '../../../shared/interfaces/trello-list';
 import { map } from 'rxjs';
 import { TrelloListComponent } from '../trello-list/trello-list.component';
-import { LoaderComponent } from '../loader/loader.component';
-import { StateService } from '../../services/state.service';
 import { ToastrService } from 'ngx-toastr';
-import { ListMetrics } from '../../../shared/interfaces/metrics';
-import { GeminiService } from '../../services/gemini.service';
-import { AuthService } from '../../services/auth.service';
-import { ModalComponent } from '../modal/modal.component';
 import { NgIf } from '@angular/common';
+import { LoaderComponent } from '../../core/components/loader/loader.component';
+import { ModalComponent } from '../../core/components/modal/modal.component';
+import TrelloList from '../../shared/interfaces/trello-list';
+import { TrelloService } from '../../core/services/trello.service';
+import { StateService } from '../../core/services/state.service';
+import { GeminiService } from '../../core/services/gemini.service';
+import { AuthService } from '../../core/services/auth.service';
+import { ListMetrics } from '../../shared/interfaces/metrics';
 
 @Component({
   selector: 'app-trello-board',

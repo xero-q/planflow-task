@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
-import TrelloCard from '../../../shared/interfaces/trello-card';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TrelloService } from '../../services/trello.service';
-import { LoaderComponent } from '../loader/loader.component';
-import { StateService } from '../../services/state.service';
 import { NgIf, NgStyle } from '@angular/common';
-import { ModalComponent } from '../modal/modal.component';
-import { FormCardComponent } from '../form-card/form-card.component';
 import { ToastrService } from 'ngx-toastr';
+import { LoaderComponent } from '../../core/components/loader/loader.component';
+import { ModalComponent } from '../../core/components/modal/modal.component';
+import { FormCardComponent } from '../../core/components/form-card/form-card.component';
+import TrelloCard from '../../shared/interfaces/trello-card';
+import { TrelloService } from '../../core/services/trello.service';
+import { StateService } from '../../core/services/state.service';
 
 @Component({
   selector: 'app-trello-card',
