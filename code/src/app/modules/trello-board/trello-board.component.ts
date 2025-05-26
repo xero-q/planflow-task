@@ -132,9 +132,8 @@ export class TrelloBoardComponent {
         this.isPromptingAI = false;
         this.openModal();
       },
-      error: (err: any) => {
-        this.toastr.warning('Error when prompting Gemini API', 'Warning');
-        console.error(err);
+      error: () => {
+        this.toastr.warning('Error when prompting Gemini API');
         this.isPromptingAI = false;
       },
     });

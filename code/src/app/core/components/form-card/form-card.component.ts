@@ -111,7 +111,7 @@ export class FormCardComponent {
             this.isSubmitting = false;
             this.toastr.success('Card created successfully');
           },
-          error: (error) => {
+          error: () => {
             this.isSubmitting = false;
             this.toastr.error('Error while creating card');
           },
