@@ -53,7 +53,14 @@ describe('FormCardComponent Integration', () => {
   });
 
   it('should create and initialize form in update mode', () => {
-    component.card = { id: 'card-1', name: 'My Card', desc: 'Desc' };
+    component.card = {
+      id: 'card-1',
+      name: 'My Card',
+      desc: 'Desc',
+      closed: false,
+      idBoard: 'board-1',
+      idList: 'list-1',
+    };
     fixture.detectChanges();
 
     expect(component.cardForm).toBeTruthy();
