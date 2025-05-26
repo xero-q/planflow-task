@@ -1,16 +1,15 @@
 .ai-container {
-  width:100%;
   margin-left:auto;
   margin-right:auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  max-width: 250px;
+  width:274px;
   margin-bottom: 1rem;
 
   button {
-    min-width:200px;
+    width:100%;
   }
 
   .gemini-response {
