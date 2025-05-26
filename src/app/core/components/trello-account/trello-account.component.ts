@@ -1,3 +1,7 @@
+/**
+ * @class TrelloAccountComponent
+ * @description Component that manages Trello account boards and board creation
+ */
 import { Component, signal, WritableSignal } from '@angular/core';
 import { TrelloService } from '../../services/trello.service';
 import { map } from 'rxjs';
@@ -10,6 +14,10 @@ import { StateService } from '../../services/state.service';
 import { ModalComponent } from '../modal/modal.component';
 import { ToastrService } from 'ngx-toastr';
 
+/**
+ * Component that displays and manages Trello boards for the current user
+ * Handles board creation, deletion, and selection
+ */
 @Component({
   selector: 'app-trello-account',
   imports: [LoaderComponent, FormBoardComponent, NgStyle, NgIf, ModalComponent],
@@ -17,10 +25,28 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './trello-account.component.scss',
 })
 export class TrelloAccountComponent {
+  /**
+   * Signal that holds the list of Trello boards
+   */
   boardsList: WritableSignal<TrelloBoard[]> = signal([]);
+
+  /**
+   * Flag indicating if the component is loading
+   */
   isLoading = true;
+
+  /**
+   * Flag controlling the visibility of the board creation form
+   */
   displayBoardForm = false;
 
+  /**
+   * Constructor that initializes the component with required services
+   * @param trelloService - Service for Trello API interactions
+   * @param router - Navigation service
+   * @param stateService - Service for managing application state
+   * @param toastr - Toast notification service
+   */
   constructor(
     private trelloService: TrelloService,
     private router: Router,
@@ -28,10 +54,17 @@ export class TrelloAccountComponent {
     private toastr: ToastrService
   ) {}
 
+  /**
+   * Lifecycle hook that initializes the component
+   */
   ngOnInit() {
     this.loadBoards();
   }
 
+  /**
+   * Loads the user's Trello boards from the API
+   * Filters out closed boards and updates the boards list
+   */
   loadBoards(): void {
     this.trelloService
       .getBoards()
@@ -45,25 +78,39 @@ export class TrelloAccountComponent {
         },
         error: () => {
           this.isLoading = false;
-          this.toastr.error('Error loading boards', 'Error');
+          this.toastr.error('Error loading boards');
         },
       });
   }
 
+  /**
+   * Handles board selection
+   * @param event - Event object containing the selected board ID
+   */
   onBoardSelected(event: any) {
     if (event && event.target.value) {
       this.router.navigate(['/trello-board', event.target.value]);
     }
   }
 
+  /**
+   * Opens the board creation form
+   */
   openModal() {
     this.displayBoardForm = true;
   }
 
+  /**
+   * Closes the board creation form
+   */
   closeModal() {
     this.displayBoardForm = false;
   }
 
+  /**
+   * Handles board creation success
+   * Reloads boards and hides the form
+   */
   onBoardAddedAndClose() {
     this.loadBoards();
     this.closeModal();

@@ -1,3 +1,7 @@
+/**
+ * @class StateService
+ * @description Service that manages application state and user metrics
+ */
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
@@ -6,14 +10,34 @@ import {
   UserMetrics,
 } from '../../shared/interfaces/metrics';
 
+/**
+ * Service that manages application state and persists user data
+ * Handles both in-memory and localStorage state management
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class StateService {
+  /**
+   * Current selected board ID
+   */
   boardId: string = '';
+
+  /**
+   * User's full name
+   */
   fullName: string = '';
+
+  /**
+   * User's metrics data including board and list information
+   */
   userMetrics: UserMetrics = { boards: [] };
 
+  /**
+   * Constructor that initializes state service
+   * Loads user's full name from localStorage if available
+   * @param platformId - Platform ID for browser detection
+   */
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
       const name = localStorage.getItem('fullName');
@@ -21,23 +45,49 @@ export class StateService {
     }
   }
 
+  /**
+   * Sets the current board ID
+   * @param id - ID of the selected board
+   */
   setBoardId(id: string): void {
     this.boardId = id;
   }
+
+  /**
+   * Gets the current board ID
+   * @returns Current board ID
+   */
   getBoardId(): string {
     return this.boardId;
   }
 
+  /**
+   * Sets the user's full name
+   * Persists the name to localStorage on browser platform
+   * @param name - User's full name
+   */
   setFullName(name: string): void {
     this.fullName = name;
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('fullName', name);
     }
   }
+
+  /**
+   * Gets the user's full name
+   * @returns User's full name
+   */
   getFullName(): string {
     return this.fullName;
   }
 
+  /**
+   * Adds metrics data for a board's list
+   * @param boardId - ID of the board
+   * @param listId - ID of the list
+   * @param listName - Name of the list
+   * @param cards - Array of card metrics for the list
+   */
   addBoardMetrics(
     boardId: string,
     listId: string,

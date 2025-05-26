@@ -4,6 +4,7 @@ import { TrelloAccountComponent } from './core/components/trello-account/trello-
 import { UserMenuComponent } from './core/components/user-menu/user-menu.component';
 import { AuthService } from './core/services/auth.service';
 import { Meta, Title } from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class AppComponent {
   title = 'planflow';
+  currentYear: number = new Date().getFullYear();
   authService = inject(AuthService);
 
   isLoggedIn = !!this.authService.getToken();

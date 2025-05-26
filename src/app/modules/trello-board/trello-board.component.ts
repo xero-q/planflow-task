@@ -1,3 +1,7 @@
+/**
+ * @class TrelloBoardComponent
+ * @description Component that represents a Trello board and manages its lists and cards
+ */
 import { Component, Input, signal, WritableSignal } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +18,10 @@ import { GeminiService } from '../../core/services/gemini.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ListMetrics } from '../../shared/interfaces/metrics';
 
+/**
+ * Component that represents a Trello board and manages its lists and cards
+ * Integrates with Gemini AI for board recommendations
+ */
 @Component({
   selector: 'app-trello-board',
   imports: [
@@ -27,14 +35,46 @@ import { ListMetrics } from '../../shared/interfaces/metrics';
   styleUrl: './trello-board.component.scss',
 })
 export class TrelloBoardComponent {
+  /**
+   * Current board ID
+   */
   boardId: string | null = null;
+
+  /**
+   * Loading state indicator
+   */
   isLoading = true;
+
+  /**
+   * AI-generated board recommendation text
+   */
   boardRecommnedation: string | null = null;
+
+  /**
+   * Flag to control display of Gemini AI response
+   */
   displayGeminiResponse = false;
 
+  /**
+   * Signal that holds the list of tasks/lists
+   */
   tasksLists: WritableSignal<TrelloList[]> = signal([]);
+
+  /**
+   * Flag indicating if AI is currently processing a request
+   */
   isPromptingAI = false;
 
+  /**
+   * Constructor that initializes the component with required services
+   * @param trelloService - Service for Trello API interactions
+   * @param route - Router service for route parameters
+   * @param router - Navigation service
+   * @param stateService - Service for managing application state
+   * @param toastr - Toast notification service
+   * @param geminiService - Gemini AI service
+   * @param authService - Authentication service
+   */
   constructor(
     private trelloService: TrelloService,
     private route: ActivatedRoute,
@@ -45,6 +85,10 @@ export class TrelloBoardComponent {
     private authService: AuthService
   ) {}
 
+  /**
+   * Retrieves board metrics from state service
+   * @returns Array of list metrics for the current board
+   */
   getBoardMetrics(): ListMetrics[] {
     return this.stateService.getBoardMetrics(this.boardId ?? '');
   }
@@ -66,7 +110,7 @@ export class TrelloBoardComponent {
               this.isLoading = false;
             },
             error: () => {
-              this.toastr.error('Error loading board', 'Error');
+              this.toastr.error('Error loading board');
               this.isLoading = false;
               this.router.navigate(['/dashboard']);
             },

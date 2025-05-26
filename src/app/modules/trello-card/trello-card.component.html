@@ -9,7 +9,7 @@
   <h3 class="return-link h3-header" (click)="goToBoard()">Return to Board</h3>
   <div class="trello-card">
     <h3>{{ card?.name }}</h3>
-    <h3>{{ card?.desc }}</h3>
+    <markdown [data]="card?.desc"></markdown>
   </div>
 
   <button
