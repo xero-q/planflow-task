@@ -119,6 +119,10 @@ export class TrelloBoardComponent {
     });
   }
 
+  /**
+   * Get recommendation from Gemini AI based on the provided prompt
+   * @param prompt Prompt to send to Gemini AI for generating a recommendation
+   */
   getBoardRecommendation(prompt: string) {
     this.isPromptingAI = true;
     this.geminiService.sendPrompt(prompt).subscribe({
@@ -135,20 +139,30 @@ export class TrelloBoardComponent {
     });
   }
 
+  /**
+   * Handles click on the "Ask AI recommendation" button
+   * It retrieves board metrics and sends a prompt to Gemini AI for recommendations
+   */
   doAskBoardRecommendation() {
     const boardMetrics = this.stateService.getBoardMetrics(this.boardId ?? '');
     const prompt = `Here it is a JSON stringified of my lists and theirs cards of a Trello board: ${JSON.stringify(
       boardMetrics,
       null,
       2
-    )}. I want you to give me some recommnedation based on that, just include in your response the text of the recommendation`;
+    )}. Based on that, I want you to suggest me some changes on the work flow and which should be the prioritized cards. Just include in your response the suggestions, no other text.`;
     this.getBoardRecommendation(prompt);
   }
 
+  /**
+   * Open modal
+   */
   openModal() {
     this.displayGeminiResponse = true;
   }
 
+  /**
+   * Close modal
+   */
   closeModal() {
     this.displayGeminiResponse = false;
   }
