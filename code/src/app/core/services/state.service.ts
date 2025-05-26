@@ -21,12 +21,12 @@ export class StateService {
   /**
    * Current selected board ID
    */
-  boardId: string = '';
+  boardId = '';
 
   /**
    * User's full name
    */
-  fullName: string = '';
+  fullName = '';
 
   /**
    * User's metrics data including board and list information
@@ -38,7 +38,7 @@ export class StateService {
    * Loads user's full name from localStorage if available
    * @param platformId - Platform ID for browser detection
    */
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
     if (isPlatformBrowser(this.platformId)) {
       const name = localStorage.getItem('fullName');
       this.fullName = name ?? '';

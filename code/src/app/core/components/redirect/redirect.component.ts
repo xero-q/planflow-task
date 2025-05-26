@@ -4,7 +4,6 @@
  */
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrelloService } from '../../services/trello.service';
 import { AuthService } from '../../services/auth.service';
 
 /**

@@ -2,7 +2,7 @@
  * @class TrelloBoardComponent
  * @description Component that represents a Trello board and manages its lists and cards
  */
-import { Component, Input, signal, WritableSignal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
@@ -34,7 +34,7 @@ import { ListMetrics } from '../../shared/interfaces/metrics';
   templateUrl: './trello-board.component.html',
   styleUrl: './trello-board.component.scss',
 })
-export class TrelloBoardComponent {
+export class TrelloBoardComponent implements OnInit {
   /**
    * Current board ID
    */

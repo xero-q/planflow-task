@@ -30,7 +30,7 @@ export class AuthService {
    * Constructor that initializes authentication state
    * @param platformId - Platform ID for browser detection
    */
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
     this.isLoggedInSubject.next(!!this.getToken());
   }
 

@@ -4,9 +4,11 @@
  */
 import { NgIf } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -29,7 +31,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './form-board.component.html',
   styleUrl: './form-board.component.scss',
 })
-export class FormBoardComponent {
+export class FormBoardComponent implements OnInit, AfterViewInit {
   /**
    * Reactive form group for board creation
    */
@@ -39,7 +41,7 @@ export class FormBoardComponent {
    * Event emitter that triggers when a board is added
    * @event
    */
-  @Output('boardAdded') boardAdded = new EventEmitter<void>();
+  @Output() boardAdded = new EventEmitter<void>();
 
   /**
    * Flag indicating if the form is currently submitting
@@ -93,7 +95,7 @@ export class FormBoardComponent {
          * Handles successful board creation
          * @param board - Newly created board
          */
-        next: (board) => {
+        next: () => {
           this.boardAdded.emit();
           this.boardForm.reset();
           this.isSubmitting = false;

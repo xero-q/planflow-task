@@ -1,9 +1,11 @@
 import { NgIf } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -27,7 +29,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './form-card.component.html',
   styleUrl: './form-card.component.scss',
 })
-export class FormCardComponent {
+export class FormCardComponent implements OnInit, AfterViewInit {
   /**
    * The form group instance for the card form.
    */
@@ -36,17 +38,17 @@ export class FormCardComponent {
   /**
    * The ID of the list where the card will be added or updated.
    */
-  @Input('idList') idList!: string;
+  @Input() idList!: string;
 
   /**
    * The card object being updated, or null if creating a new card.
    */
-  @Input('card') card: TrelloCard | null = null;
+  @Input() card: TrelloCard | null = null;
 
   /**
    * Emits an event when a card is added or updated.
    */
-  @Output('cardAddedUpdated') cardAddedUpdated = new EventEmitter<void>();
+  @Output() cardAddedUpdated = new EventEmitter<void>();
 
   /**
    * Flag indicating whether the form is currently being submitted.

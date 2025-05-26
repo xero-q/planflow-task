@@ -2,7 +2,7 @@
  * @class TrelloCardComponent
  * @description Component that displays and manages a single Trello card
  */
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf, NgStyle } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -31,12 +31,12 @@ import { MarkdownModule } from 'ngx-markdown';
   templateUrl: './trello-card.component.html',
   styleUrl: './trello-card.component.scss',
 })
-export class TrelloCardComponent {
+export class TrelloCardComponent implements OnInit {
   /**
    * Input property that receives the card data
    * @input
    */
-  @Input('card') card: TrelloCard | null = null;
+  @Input() card: TrelloCard | null = null;
 
   /**
    * Current card ID

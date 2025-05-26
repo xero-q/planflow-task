@@ -2,7 +2,7 @@
  * @class AppComponent
  * @description Root component of the PlanFlow application
  */
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TrelloAccountComponent } from './core/components/trello-account/trello-account.component';
 import { UserMenuComponent } from './core/components/user-menu/user-menu.component';
@@ -20,7 +20,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   /**
    * Application title
    */

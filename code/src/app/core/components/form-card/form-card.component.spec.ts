@@ -53,7 +53,7 @@ describe('FormCardComponent Integration', () => {
   });
 
   it('should create and initialize form in update mode', () => {
-    component.card = { id: 'card-1', name: 'My Card', desc: 'Desc' } as any;
+    component.card = { id: 'card-1', name: 'My Card', desc: 'Desc' };
     fixture.detectChanges();
 
     expect(component.cardForm).toBeTruthy();
@@ -97,7 +97,10 @@ describe('FormCardComponent Integration', () => {
       id: 'card-1',
       name: 'Old Name',
       desc: 'Old Desc',
-    } as any;
+      closed: false,
+      idBoard: 'board-1',
+      idList: 'list-1',
+    };
     fixture.detectChanges();
 
     component.cardForm.controls['name'].setValue('Updated Name');
@@ -147,7 +150,10 @@ describe('FormCardComponent Integration', () => {
       id: 'card-1',
       name: 'Old Name',
       desc: 'Old Desc',
-    } as any;
+      closed: false,
+      idBoard: 'board-1',
+      idList: 'list-1',
+    };
     fixture.detectChanges();
 
     component.cardForm.controls['name'].setValue('Updated Name');

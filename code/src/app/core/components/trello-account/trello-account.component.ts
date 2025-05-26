@@ -2,7 +2,7 @@
  * @class TrelloAccountComponent
  * @description Component that manages Trello account boards and board creation
  */
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { TrelloService } from '../../services/trello.service';
 import { map } from 'rxjs';
 import TrelloBoard from '../../../shared/interfaces/trello-board';
@@ -24,7 +24,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './trello-account.component.html',
   styleUrl: './trello-account.component.scss',
 })
-export class TrelloAccountComponent {
+export class TrelloAccountComponent implements OnInit {
   /**
    * Signal that holds the list of Trello boards
    */
@@ -87,9 +87,11 @@ export class TrelloAccountComponent {
    * Handles board selection
    * @param event - Event object containing the selected board ID
    */
-  onBoardSelected(event: any) {
-    if (event && event.target.value) {
-      this.router.navigate(['/trello-board', event.target.value]);
+  onBoardSelected(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedValue = selectElement.value;
+    if (selectedValue) {
+      this.router.navigate(['/trello-board', selectedValue]);
     }
   }
 

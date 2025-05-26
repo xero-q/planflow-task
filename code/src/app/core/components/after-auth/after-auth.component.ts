@@ -2,7 +2,7 @@
  * @class AfterAuthComponent
  * @description Component that handles the OAuth callback after Trello authentication
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrelloService } from '../../services/trello.service';
 import User from '../../../shared/interfaces/user';
@@ -19,7 +19,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './after-auth.component.html',
   styleUrl: './after-auth.component.scss',
 })
-export class AfterAuthComponent {
+export class AfterAuthComponent implements OnInit {
   /**
    * Constructor that initializes the component with required services
    * @param route - Router service for accessing URL parameters

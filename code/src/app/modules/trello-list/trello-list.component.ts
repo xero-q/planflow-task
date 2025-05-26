@@ -2,7 +2,13 @@
  * @class TrelloListComponent
  * @description Component that displays and manages a Trello list and its cards
  */
-import { Component, Input, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { TrelloCardComponent } from '../trello-card/trello-card.component';
 import { Router } from '@angular/router';
 import { NgIf, NgStyle } from '@angular/common';
@@ -30,12 +36,12 @@ import TrelloCard from '../../shared/interfaces/trello-card';
   templateUrl: './trello-list.component.html',
   styleUrl: './trello-list.component.scss',
 })
-export class TrelloListComponent {
+export class TrelloListComponent implements OnInit {
   /**
    * Input property that receives the list data
    * @input
    */
-  @Input('list') list!: TrelloList;
+  @Input() list!: TrelloList;
 
   /**
    * Signal that holds the list of cards

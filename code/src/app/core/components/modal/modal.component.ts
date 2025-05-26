@@ -32,7 +32,7 @@ export class ModalComponent {
    * @param event - Keyboard event object
    */
   @HostListener('document:keydown.escape', ['$event'])
-  handleEscapeKey(event: KeyboardEvent) {
+  handleEscapeKey() {
     this.close();
   }
 }
