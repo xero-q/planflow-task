@@ -6,20 +6,26 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 - Install dependencies
 
-```bash
+```sh
 npm install
 ```
 
 - Run development server
 
-```bash
+```sh
 ng serve
 ```
 
 ## Testing
 
-```bash
+```sh
 ng test
+```
+
+## Linting
+
+```sh
+ng lint
 ```
 
 ## Implementation notes
