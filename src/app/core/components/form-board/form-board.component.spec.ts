@@ -19,7 +19,10 @@ describe('FormBoardComponent', () => {
 
   beforeEach(async () => {
     const trelloSpy = jasmine.createSpyObj('TrelloService', ['addNewBoard']);
-    const toastSpy = jasmine.createSpyObj('ToastrService', ['error']);
+    const toastSpy = jasmine.createSpyObj('ToastrService', [
+      'error',
+      'success',
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormBoardComponent],
@@ -71,9 +74,6 @@ describe('FormBoardComponent', () => {
     tick();
 
     // Assert
-    expect(toastrSpy.error).toHaveBeenCalledWith(
-      'Error while creating board',
-      'Error'
-    );
+    expect(toastrSpy.error).toHaveBeenCalledWith('Error while creating board');
   }));
 });

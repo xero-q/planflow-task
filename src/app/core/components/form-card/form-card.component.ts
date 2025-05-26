@@ -113,7 +113,7 @@ export class FormCardComponent {
           },
           error: (error) => {
             this.isSubmitting = false;
-            this.toastr.error(error.message || 'Failed to create card');
+            this.toastr.error('Error while creating card');
           },
         });
       } else {

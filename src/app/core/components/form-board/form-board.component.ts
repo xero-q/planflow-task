@@ -101,11 +101,10 @@ export class FormBoardComponent {
         },
         /**
          * Handles board creation error
-         * @param error - Error object
          */
-        error: (error) => {
+        error: () => {
           this.isSubmitting = false;
-          this.toastr.error(error.message || 'Failed to create board');
+          this.toastr.error('Error while creating board');
         },
       });
     } else {

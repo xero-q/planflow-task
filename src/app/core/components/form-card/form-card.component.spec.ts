@@ -21,7 +21,10 @@ describe('FormCardComponent Integration', () => {
       'addNewCard',
       'updateCard',
     ]);
-    const toastrMock = jasmine.createSpyObj('ToastrService', ['error']);
+    const toastrMock = jasmine.createSpyObj('ToastrService', [
+      'error',
+      'success',
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [FormCardComponent, ReactiveFormsModule],
@@ -46,7 +49,7 @@ describe('FormCardComponent Integration', () => {
 
     expect(component.cardForm).toBeTruthy();
     expect(component.cardForm.get('name')?.value).toBe('');
-    expect(component.cardForm.contains('desc')).toBeFalse();
+    expect(component.cardForm.get('desc')?.value).toBe('');
   });
 
   it('should create and initialize form in update mode', () => {
@@ -59,11 +62,12 @@ describe('FormCardComponent Integration', () => {
   });
 
   it('should call addNewCard and emit event on valid form submit in add mode', fakeAsync(() => {
-    component.idList = 'list-123';
+    component.idList = 'id-1';
     component.card = null;
     fixture.detectChanges();
 
     component.cardForm.controls['name'].setValue('New Card');
+    component.cardForm.controls['desc'].setValue('New Description');
     trelloServiceSpy.addNewCard.and.returnValue(
       of({
         id: 'card-2',
@@ -81,7 +85,8 @@ describe('FormCardComponent Integration', () => {
 
     expect(trelloServiceSpy.addNewCard).toHaveBeenCalledWith(
       'New Card',
-      'list-123'
+      'New Description',
+      'id-1'
     );
     expect(component.cardAddedUpdated.emit).toHaveBeenCalled();
     expect(component.cardForm.value.name).toBeNull();
@@ -134,10 +139,7 @@ describe('FormCardComponent Integration', () => {
     component.onSubmit();
     tick();
 
-    expect(toastrSpy.error).toHaveBeenCalledWith(
-      'Error while creating card',
-      'Error'
-    );
+    expect(toastrSpy.error).toHaveBeenCalledWith('Error while creating card');
   }));
 
   it('should show error toast if updateCard fails', fakeAsync(() => {
@@ -157,10 +159,7 @@ describe('FormCardComponent Integration', () => {
     component.onSubmit();
     tick();
 
-    expect(toastrSpy.error).toHaveBeenCalledWith(
-      'Error while updating card',
-      'Error'
-    );
+    expect(toastrSpy.error).toHaveBeenCalledWith('Error while updating card');
   }));
 
   it('should mark form as touched when form invalid on submit', () => {
