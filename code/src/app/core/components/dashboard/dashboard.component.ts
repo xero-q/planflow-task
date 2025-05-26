@@ -19,7 +19,7 @@ export class DashboardComponent {
    * Constructor that initializes the dashboard state
    * @param stateService - Service for managing application state
    */
-  constructor(private stateService: StateService) {
+  constructor(public stateService: StateService) {
     this.stateService.setBoardId('');
   }
 }
