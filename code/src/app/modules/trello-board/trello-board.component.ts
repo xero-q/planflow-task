@@ -43,7 +43,7 @@ export class TrelloBoardComponent {
   /**
    * Loading state indicator
    */
-  isLoading = true;
+  isLoading = false;
 
   /**
    * AI-generated board recommendation text
@@ -98,6 +98,7 @@ export class TrelloBoardComponent {
       this.boardId = params.get('id');
 
       if (this.boardId) {
+        this.isLoading = true;
         this.stateService.setBoardId(this.boardId);
         this.trelloService
           .getLists(this.boardId)
