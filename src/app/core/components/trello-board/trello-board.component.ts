@@ -8,7 +8,6 @@ import { TrelloListComponent } from '../trello-list/trello-list.component';
 import { LoaderComponent } from '../loader/loader.component';
 import { StateService } from '../../services/state.service';
 import { ToastrService } from 'ngx-toastr';
-import { MetricsService } from '../../services/metrics.service';
 import { ListMetrics } from '../../../shared/interfaces/metrics';
 import { GeminiService } from '../../services/gemini.service';
 import { AuthService } from '../../services/auth.service';
@@ -42,16 +41,12 @@ export class TrelloBoardComponent {
     private router: Router,
     private stateService: StateService,
     private toastr: ToastrService,
-    public metricsService: MetricsService,
     private geminiService: GeminiService,
     private authService: AuthService
   ) {}
 
   getBoardMetrics(): ListMetrics[] {
-    const boardMetrics = this.metricsService.getBoardMetrics(
-      this.boardId ?? ''
-    );
-    return boardMetrics;
+    return this.stateService.getBoardMetrics(this.boardId ?? '');
   }
 
   ngOnInit(): void {
@@ -97,9 +92,7 @@ export class TrelloBoardComponent {
   }
 
   doAskBoardRecommendation() {
-    const boardMetrics = this.metricsService.getBoardMetrics(
-      this.boardId ?? ''
-    );
+    const boardMetrics = this.stateService.getBoardMetrics(this.boardId ?? '');
     const prompt = `Here it is a JSON stringified of my lists and theirs cards of a Trello board: ${JSON.stringify(
       boardMetrics,
       null,
