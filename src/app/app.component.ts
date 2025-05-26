@@ -1,26 +1,57 @@
+/**
+ * @class AppComponent
+ * @description Root component of the PlanFlow application
+ */
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TrelloAccountComponent } from './core/components/trello-account/trello-account.component';
 import { UserMenuComponent } from './core/components/user-menu/user-menu.component';
 import { AuthService } from './core/services/auth.service';
 import { Meta, Title } from '@angular/platform-browser';
-import { DatePipe } from '@angular/common';
+import { NgIf } from '@angular/common';
 
+/**
+ * Root component that serves as the main container for the application
+ * Manages authentication state and sets up SEO metadata
+ */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TrelloAccountComponent, UserMenuComponent],
+  imports: [RouterOutlet, TrelloAccountComponent, UserMenuComponent, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  /**
+   * Application title
+   */
   title = 'planflow';
+
+  /**
+   * Current year for copyright information
+   */
   currentYear: number = new Date().getFullYear();
+
+  /**
+   * Injected authentication service
+   */
   authService = inject(AuthService);
 
+  /**
+   * Flag indicating if the user is logged in
+   */
   isLoggedIn = !!this.authService.getToken();
 
+  /**
+   * Constructor that initializes the component with required services
+   * @param meta - Service for managing meta tags
+   * @param titleService - Service for managing page title
+   */
   constructor(private meta: Meta, private titleService: Title) {}
 
+  /**
+   * Lifecycle hook that initializes the component
+   * Sets up authentication state subscription and SEO metadata
+   */
   ngOnInit() {
     this.authService.isLoggedIn$.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
