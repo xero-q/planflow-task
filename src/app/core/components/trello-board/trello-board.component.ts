@@ -1,4 +1,5 @@
 import { Component, Input, signal, WritableSignal } from '@angular/core';
+import { MarkdownModule } from 'ngx-markdown';
 import { TrelloService } from '../../services/trello.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import TrelloList from '../../../shared/interfaces/trello-list';
@@ -10,14 +11,19 @@ import { ToastrService } from 'ngx-toastr';
 import { MetricsService } from '../../services/metrics.service';
 import { ListMetrics } from '../../../shared/interfaces/metrics';
 import { GeminiService } from '../../services/gemini.service';
-import { environment } from '../../../../environments/environment.development';
 import { AuthService } from '../../services/auth.service';
 import { ModalComponent } from '../modal/modal.component';
 import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-trello-board',
-  imports: [TrelloListComponent, LoaderComponent, ModalComponent, NgIf],
+  imports: [
+    MarkdownModule,
+    TrelloListComponent,
+    LoaderComponent,
+    ModalComponent,
+    NgIf,
+  ],
   templateUrl: './trello-board.component.html',
   styleUrl: './trello-board.component.scss',
 })
@@ -28,6 +34,7 @@ export class TrelloBoardComponent {
   displayGeminiResponse = false;
 
   tasksLists: WritableSignal<TrelloList[]> = signal([]);
+  isPromptingAI = false;
 
   constructor(
     private trelloService: TrelloService,
@@ -74,13 +81,17 @@ export class TrelloBoardComponent {
   }
 
   getBoardRecommendation(prompt: string) {
+    this.isPromptingAI = true;
     this.geminiService.sendPrompt(prompt).subscribe({
       next: (response: any) => {
         this.boardRecommnedation = response.candidates[0].content.parts[0].text;
+        this.isPromptingAI = false;
         this.openModal();
       },
-      error: () => {
-        this.toastr.warning('Error when querying Gemini API', 'Warning');
+      error: (err: any) => {
+        this.toastr.warning('Error when prompting Gemini API', 'Warning');
+        console.error(err);
+        this.isPromptingAI = false;
       },
     });
   }

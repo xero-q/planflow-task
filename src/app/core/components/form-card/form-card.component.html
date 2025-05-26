@@ -12,6 +12,7 @@
   <div class="form-group">
     <label for="name">Name:</label>
     <input
+      #nameInput
       id="name"
       type="text"
       formControlName="name"
@@ -36,7 +37,6 @@
     </div>
   </div>
 
-  @if (card) {
   <div class="form-group">
     <label for="desc">Description:</label>
     <input
@@ -46,7 +46,8 @@
       aria-label="Card description"
     />
   </div>
-  }
 
-  <button type="submit" class="btn-secondary full-width">Submit</button>
+  <button type="submit" class="btn-secondary full-width">
+    {{ isSubmitting ? "Submitting..." : "Submit" }}
+  </button>
 </form>

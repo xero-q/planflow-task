@@ -1,5 +1,11 @@
 import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,6 +24,9 @@ import { Toast, ToastrService } from 'ngx-toastr';
 export class FormBoardComponent {
   boardForm!: FormGroup;
   @Output('boardAdded') boardAdded = new EventEmitter<void>();
+  isSubmitting = false;
+
+  @ViewChild('nameInput') nameInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private fb: FormBuilder,
@@ -31,20 +40,27 @@ export class FormBoardComponent {
     });
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => this.nameInput.nativeElement.focus(), 0);
+  }
+
   onSubmit() {
     if (this.boardForm.valid) {
+      this.isSubmitting = true;
       const name = this.boardForm.get('name')?.value.trim();
       this.trelloService.addNewBoard(name).subscribe({
         next: () => {
           this.boardAdded.emit();
           this.boardForm.reset();
+          this.isSubmitting = false;
         },
         error: () => {
           this.toastr.error('Error while creating board', 'Error');
+          this.isSubmitting = false;
         },
       });
     } else {
-      this.boardForm.markAllAsTouched;
+      this.boardForm.markAllAsTouched();
     }
   }
 }

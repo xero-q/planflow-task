@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import TrelloBoard from '../../shared/interfaces/trello-board';
 import TrelloList from '../../shared/interfaces/trello-list';
@@ -14,6 +14,7 @@ import { AuthService } from './auth.service';
 })
 export class TrelloService {
   API_KEY = environment.TRELLO_API_KEY;
+  baseUrl = 'https://api.trello.com/1';
 
   constructor(
     private httpClient: HttpClient,
@@ -22,40 +23,40 @@ export class TrelloService {
 
   getUserInfo(): Observable<User> {
     const token = this.authService.getToken();
-    const url = `https://api.trello.com/1/members/me?key=${this.API_KEY}&token=${token}`;
+    const url = `${this.baseUrl}/members/me?key=${this.API_KEY}&token=${token}`;
     return this.httpClient.get<User>(url);
   }
 
   getBoards(): Observable<TrelloBoard[]> {
     const token = this.authService.getToken();
     return this.httpClient.get<TrelloBoard[]>(
-      `https://api.trello.com/1/members/me/boards?key=${this.API_KEY}&token=${token}`
+      `${this.baseUrl}/members/me/boards?key=${this.API_KEY}&token=${token}`
     );
   }
 
   getLists(boardId: string): Observable<TrelloList[]> {
     const token = this.authService.getToken();
     return this.httpClient.get<TrelloList[]>(
-      `https://api.trello.com/1/boards/${boardId}/lists?key=${this.API_KEY}&token=${token}`
+      `${this.baseUrl}/boards/${boardId}/lists?key=${this.API_KEY}&token=${token}`
     );
   }
 
   getCards(listId: string): Observable<TrelloCard[]> {
     const token = this.authService.getToken();
     return this.httpClient.get<TrelloCard[]>(
-      `https://api.trello.com/1/lists/${listId}/cards?key=${this.API_KEY}&token=${token}`
+      `${this.baseUrl}/lists/${listId}/cards?key=${this.API_KEY}&token=${token}`
     );
   }
 
   getSingleCard(cardId: string): Observable<TrelloCard> {
     const token = this.authService.getToken();
     return this.httpClient.get<TrelloCard>(
-      `https://api.trello.com/1/cards/${cardId}?key=${this.API_KEY}&token=${token}`
+      `${this.baseUrl}/cards/${cardId}?key=${this.API_KEY}&token=${token}`
     );
   }
 
   addNewBoard(boardName: string): Observable<TrelloBoard> {
-    const url = 'https://api.trello.com/1/boards/';
+    const url = `${this.baseUrl}/boards/`;
     const params = new HttpParams()
       .set('name', boardName)
       .set('key', this.API_KEY)
@@ -64,10 +65,15 @@ export class TrelloService {
     return this.httpClient.post<TrelloBoard>(url, null, { params });
   }
 
-  addNewCard(cardName: string, idList: string): Observable<TrelloCard> {
-    const url = 'https://api.trello.com/1/cards/';
+  addNewCard(
+    cardName: string,
+    cardDescription: string,
+    idList: string
+  ): Observable<TrelloCard> {
+    const url = `${this.baseUrl}/cards/`;
     const params = new HttpParams()
       .set('name', cardName)
+      .set('desc', cardDescription)
       .set('idList', idList)
       .set('key', this.API_KEY)
       .set('token', this.authService.getToken() ?? '');
@@ -86,7 +92,7 @@ export class TrelloService {
     };
     const token = this.authService.getToken();
 
-    const url = `https://api.trello.com/1/cards/${cardId}?key=${this.API_KEY}&token=${token}`;
+    const url = `${this.baseUrl}/cards/${cardId}?key=${this.API_KEY}&token=${token}`;
 
     return this.httpClient.put<TrelloCard>(url, updateFields, {});
   }

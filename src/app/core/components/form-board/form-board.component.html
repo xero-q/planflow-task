@@ -9,6 +9,7 @@
   <div class="form-group">
     <label for="name">Name:</label>
     <input
+      #nameInput
       id="name"
       type="text"
       formControlName="name"
@@ -29,5 +30,7 @@
     </small>
   </div>
 
-  <button type="submit" class="btn-secondary full-width">Submit</button>
+  <button type="submit" class="btn-secondary full-width">
+    {{ isSubmitting ? "Submitting" : "Submit" }}
+  </button>
 </form>
