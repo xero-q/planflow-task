@@ -8,7 +8,20 @@
   </button>
 
   <ul *ngIf="isMenuOpen" class="menu-dropdown">
-    <li (click)="navigateToDashboard()">Dashboard</li>
-    <li (click)="logout()" class="logout">Logout</li>
+    <li
+      (click)="navigateToDashboard()"
+      tabindex="0"
+      (keydown)="onKeydownDashboard($event)"
+    >
+      Dashboard
+    </li>
+    <li
+      (click)="logout()"
+      class="logout"
+      tabindex="0"
+      (keydown)="onKeydownLogout($event)"
+    >
+      Logout
+    </li>
   </ul>
 </div>

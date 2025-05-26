@@ -79,4 +79,26 @@ export class UserMenuComponent {
       this.closeMenu();
     }
   }
+
+  /**
+   * Handles Enter or Space on Dashboard
+   * @param event - Keyboard event object
+   */
+  onKeydownDashboard(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.navigateToDashboard();
+    }
+  }
+
+  /**
+   * Handles Enter or Space on Logout
+   * @param event - Keyboard event object
+   */
+  onKeydownLogout(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.logout();
+    }
+  }
 }
