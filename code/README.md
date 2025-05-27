@@ -28,9 +28,9 @@ ng lint
 
 ## Implemented functionalities
 
-- List/Creat boards
+- List/Create boards
 - View lists of cards
-- Create/Edit card
+- Create/Edit cards
 - See number of cards by list in a board
 - Ask AI recommendation for the board (it suggests improvements for the workflow and prioritized cards)
 
