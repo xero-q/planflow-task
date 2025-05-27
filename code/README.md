@@ -28,6 +28,14 @@ ng test
 ng lint
 ```
 
+## Implemented functionalities
+
+- List/Creat boards
+- View lists of cards
+- Create/Edit card
+- See number of cards by list in a board
+- Ask AI recommendation for the board (it suggests improvements for the workflow and prioritized cards)
+
 ## Implementation notes
 
 - Used a service for managing application state, as it's very simple
