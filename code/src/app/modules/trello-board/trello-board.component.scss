@@ -26,6 +26,11 @@
 
 .trello-list-container {
 
+  h3.h3-header {
+    display: flex;
+    justify-content: center;
+  }
+
   .metrics {
     display: flex;
     flex-direction: column;

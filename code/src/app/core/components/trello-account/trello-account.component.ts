@@ -93,6 +93,9 @@ export class TrelloAccountComponent implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
     if (selectedValue) {
+      const selectedText =
+        selectElement.options[selectElement.selectedIndex].text;
+      this.stateService.setBoardName(selectedText);
       this.router.navigate(['/trello-board', selectedValue]);
     }
   }

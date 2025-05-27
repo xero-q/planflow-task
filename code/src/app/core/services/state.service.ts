@@ -24,6 +24,11 @@ export class StateService {
   boardId = '';
 
   /**
+   * Current selected board Name
+   */
+  boardName = '';
+
+  /**
    * User's full name
    */
   fullName = '';
@@ -59,6 +64,22 @@ export class StateService {
    */
   getBoardId(): string {
     return this.boardId;
+  }
+
+  /**
+   * Sets the current board name
+   * @param name - name of the selected board
+   */
+  setBoardName(name: string): void {
+    this.boardName = name;
+  }
+
+  /**
+   * Gets the current board name
+   * @returns Current board name
+   */
+  getBoardName(): string {
+    return this.boardName;
   }
 
   /**

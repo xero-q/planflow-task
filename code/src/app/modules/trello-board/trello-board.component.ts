@@ -79,10 +79,9 @@ export class TrelloBoardComponent implements OnInit {
     private trelloService: TrelloService,
     private route: ActivatedRoute,
     private router: Router,
-    private stateService: StateService,
+    public stateService: StateService,
     private toastr: ToastrService,
-    private geminiService: GeminiService,
-    private authService: AuthService
+    private geminiService: GeminiService
   ) {}
 
   /**
