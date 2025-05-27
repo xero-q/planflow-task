@@ -105,7 +105,6 @@ export class FormCardComponent implements OnInit, AfterViewInit {
 
       if (!this.card) {
         // Adding a new card
-        console.log(this.idList);
         this.trelloService.addNewCard(name, desc, this.idList).subscribe({
           next: () => {
             this.cardAddedUpdated.emit();
