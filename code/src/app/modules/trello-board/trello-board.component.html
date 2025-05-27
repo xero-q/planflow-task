@@ -19,7 +19,7 @@
   @if (isLoading) {
   <app-loader></app-loader>
   } @else {
-  <h3 class="h3-header">{{ stateService.getBoardName() }}</h3>
+  <h3 class="h3-header">{{ stateService.getSelectedBoard()?.name }}</h3>
 
   @if (getBoardMetrics().length > 0) {
   <div class="metrics">

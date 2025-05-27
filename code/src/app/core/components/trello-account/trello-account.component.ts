@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 
 /**
  * Component that displays and manages Trello boards for the current user
- * Handles board creation, deletion, and selection
+ * Handles board creation and selection
  */
 @Component({
   selector: 'app-trello-account',
@@ -93,9 +93,6 @@ export class TrelloAccountComponent implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
     if (selectedValue) {
-      const selectedText =
-        selectElement.options[selectElement.selectedIndex].text;
-      this.stateService.setBoardName(selectedText);
       this.router.navigate(['/trello-board', selectedValue]);
     }
   }

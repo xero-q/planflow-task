@@ -9,6 +9,7 @@ import {
   ListMetrics,
   UserMetrics,
 } from '../../shared/interfaces/metrics';
+import TrelloBoard from '../../shared/interfaces/trello-board';
 
 /**
  * Service that manages application state and persists user data
@@ -19,14 +20,9 @@ import {
 })
 export class StateService {
   /**
-   * Current selected board ID
+   * Current selected board
    */
-  boardId = '';
-
-  /**
-   * Current selected board Name
-   */
-  boardName = '';
+  selectedBoard: TrelloBoard | null = null;
 
   /**
    * User's full name
@@ -51,35 +47,19 @@ export class StateService {
   }
 
   /**
-   * Sets the current board ID
-   * @param id - ID of the selected board
+   * Sets the current board
+   * @param id - data of the selected board
    */
-  setBoardId(id: string): void {
-    this.boardId = id;
+  setSelectedBoard(board: TrelloBoard | null): void {
+    this.selectedBoard = board;
   }
 
   /**
-   * Gets the current board ID
-   * @returns Current board ID
+   * Gets the current board
+   * @returns Current board
    */
-  getBoardId(): string {
-    return this.boardId;
-  }
-
-  /**
-   * Sets the current board name
-   * @param name - name of the selected board
-   */
-  setBoardName(name: string): void {
-    this.boardName = name;
-  }
-
-  /**
-   * Gets the current board name
-   * @returns Current board name
-   */
-  getBoardName(): string {
-    return this.boardName;
+  getSelectedBoard(): TrelloBoard | null {
+    return this.selectedBoard;
   }
 
   /**

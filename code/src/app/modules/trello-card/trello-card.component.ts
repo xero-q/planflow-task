@@ -90,8 +90,16 @@ export class TrelloCardComponent implements OnInit {
             this.trelloService.getSingleCard(this.cardId).subscribe({
               next: (card: TrelloCard) => {
                 this.card = { ...card };
-                this.stateService.setBoardId(this.card.idBoard);
-                this.isLoading = false;
+                this.trelloService.getSingleBoard(card.idBoard).subscribe({
+                  next: (board) => {
+                    this.stateService.setSelectedBoard({ ...board });
+                    this.isLoading = false;
+                  },
+                  error: () => {
+                    this.isLoading = false;
+                    this.toastr.error('Error loading card');
+                  },
+                });
               },
               error: () => {
                 this.isLoading = false;
@@ -109,8 +117,16 @@ export class TrelloCardComponent implements OnInit {
       this.trelloService.getSingleCard(this.cardId ?? '').subscribe({
         next: (card: TrelloCard) => {
           this.card = { ...card };
-          this.stateService.setBoardId(this.card.idBoard);
-          this.isLoading = false;
+          this.trelloService.getSingleBoard(card.idBoard).subscribe({
+            next: (board) => {
+              this.stateService.setSelectedBoard({ ...board });
+              this.isLoading = false;
+            },
+            error: () => {
+              this.isLoading = false;
+              this.toastr.error('Error loading card');
+            },
+          });
         },
         error: () => {
           this.isLoading = false;

@@ -96,23 +96,35 @@ export class TrelloBoardComponent implements OnInit {
 
       if (this.boardId) {
         this.isLoading = true;
-        this.stateService.setBoardId(this.boardId);
-        this.trelloService
-          .getLists(this.boardId)
-          .pipe(
-            map((lists: TrelloList[]) => lists.filter((list) => !list.closed))
-          )
-          .subscribe({
-            next: (lists: TrelloList[]) => {
-              this.tasksLists.set(lists);
-              this.isLoading = false;
-            },
-            error: () => {
-              this.toastr.error('Error loading board');
-              this.isLoading = false;
-              this.router.navigate(['/dashboard']);
-            },
-          });
+
+        this.trelloService.getSingleBoard(this.boardId).subscribe({
+          next: (board) => {
+            this.stateService.setSelectedBoard({ ...board });
+            this.trelloService
+              .getLists(board.id)
+              .pipe(
+                map((lists: TrelloList[]) =>
+                  lists.filter((list) => !list.closed)
+                )
+              )
+              .subscribe({
+                next: (lists: TrelloList[]) => {
+                  this.tasksLists.set(lists);
+                  this.isLoading = false;
+                },
+                error: () => {
+                  this.toastr.error('Error loading board');
+                  this.isLoading = false;
+                  this.router.navigate(['/dashboard']);
+                },
+              });
+          },
+          error: () => {
+            this.toastr.error('Error loading board');
+            this.isLoading = false;
+            this.router.navigate(['/dashboard']);
+          },
+        });
       }
     });
   }

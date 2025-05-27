@@ -20,6 +20,6 @@ export class DashboardComponent {
    * @param stateService - Service for managing application state
    */
   constructor(public stateService: StateService) {
-    this.stateService.setBoardId('');
+    this.stateService.setSelectedBoard(null);
   }
 }

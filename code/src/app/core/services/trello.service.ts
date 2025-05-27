@@ -64,6 +64,18 @@ export class TrelloService {
   }
 
   /**
+   * Retrieves a single board by its ID
+   * @param boarddId - ID of the board to retrieve
+   * @returns Observable containing a single Trello board
+   */
+  getSingleBoard(boardId: string): Observable<TrelloBoard> {
+    const token = this.authService.getToken();
+    return this.httpClient.get<TrelloBoard>(
+      `${this.baseUrl}/boards/${boardId}?key=${this.API_KEY}&token=${token}`
+    );
+  }
+
+  /**
    * Retrieves all lists within a specific board
    * @param boardId - ID of the board to retrieve lists from
    * @returns Observable containing an array of Trello lists
