@@ -15,7 +15,6 @@ import TrelloList from '../../shared/interfaces/trello-list';
 import { TrelloService } from '../../core/services/trello.service';
 import { StateService } from '../../core/services/state.service';
 import { GeminiService } from '../../core/services/gemini.service';
-import { AuthService } from '../../core/services/auth.service';
 import { ListMetrics } from '../../shared/interfaces/metrics';
 
 /**
@@ -73,7 +72,6 @@ export class TrelloBoardComponent implements OnInit {
    * @param stateService - Service for managing application state
    * @param toastr - Toast notification service
    * @param geminiService - Gemini AI service
-   * @param authService - Authentication service
    */
   constructor(
     private trelloService: TrelloService,
